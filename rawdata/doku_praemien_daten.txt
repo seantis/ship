@@ -1,0 +1,54 @@
+
+# The original documentation for the csv files of the BAG.
+# Not all that accurate unfortunately.
+
+BAG  OFSP  UFSP  SFOPH                                              23.09.2011
+------------------------------------------------------------------------------
+Prämien 2012: Daten
+------------------------------------------------------------------------------
+
+Übersicht (mit Anzahl Zeilen):
+
+       - Doku_PraemienDaten.txt (diese Datei)
+       - Praemien_2012-11919-v21_pub.xls (Zusammenfassung in Form vom Pivottabellen)
+  270956 Praemien_CH_2012-11923-v22_pub.csv
+    4387 Praemien_EU_2012-11913-v1.csv
+    1198 Versicherte_CH_2012-11923-v22.csv
+  276541 total
+
+
+Hinweis: Die Datei Praemien_CH_2012-11923-v22_pub.csv hat mehr als 65000 Zeilen
+und kann deshalb nicht direkt mit Excel geladen werden.
+
+
+Praemien_CH_2012-11923-v22_pub.csv: Angebotene Prämien in der Schweiz
+Praemien_EU_2012-11913-v1.csv:      Angebotene Prämien in der EU
+
+Musterdatensatz:
+    #01  G_ID      :  0008  : BAG-Nummer
+    #02  C_ID      :  "AG"  : Kanton (oder Land)
+    #03  C_GRP     :  "CH"  : "CH" oder "EU"
+    #04  EJAHR     :  2011  : Jahr, in welchem die Prämien erhoben wurden
+    #05  JAHR      :  2012  : Jahr, für welches die Prämien gelten
+    #06  R_ID      :  0     : Region ("0": keine Unterteilung nach Regionen)
+    #07  M_ID      :  0     : Altersgruppe ("0", "19", "26")
+    #08  VAR_ID    :  05    : "5": mit Unfall; "6": ohne Unfall
+    #09  V_ID      :  "BASE": Kassenspezifische ID des Versicherungstarifes
+    #10  V_TYP     :  "Base": Tariftyp
+    #                         "Base", "HAM_RDS" (Hausarztmodelle) "HMO", "DIV"
+    #11  isBASE_V2 :  1     : "1": ist Haupt-Altersuntergruppe
+    #12  V2_ID     :  "K1"  : ID des Altersuntergruppenmodells
+    #13  V2_TYP    :  "K"   : Bezug des Altersuntergruppenmodells: "K" = Kinder
+    #14  isBASE_P  :  0     : "1": ist Grundprämie (OKP mit Unfall)
+    #15  isBASE_F  :  0     : "1": ist Grundfranchise ( 300 bzw. 0 Franken)
+    #16  F_STUFE   :  2     : Franchisestufe ("1": Grundfranchise)
+    #17  F         :  100   : Franchise
+    #18  P         :  55.4  : Prämie in Franken und Rappen
+
+Nur CH-Daten :
+    #19  V_SORT_NR :  1     : Sortierordnung für Versicherungsmodelle
+    #20  V_KBEZ    :  "Grundversicherung" : Kassenspezifische Vers.bezeichnung
+    #21  isBASE_V  :  1     : "1": erstes Vers.modell innerhalb eines Vers.Typs
+    #22  IstTaetig :  1.0   : "1.0": tätig; "1.1": eingeschränkt tätig
+
+------------------------------------------------------------------------------

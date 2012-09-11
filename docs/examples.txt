@@ -1,0 +1,23 @@
+The examples.ipynb contains an iPython Notbook with a number of
+examples to run directly on your computer. You're encouraged
+to try them out for yourself.
+
+If you don't want to bother, there's a print of the
+output in the *examples.pdf* file for your viewing pleasure.
+
+If nothing can stop you however, install the dependencies first:
+
+    pip install ipython
+    pip install numpy
+    pip install scipy
+    pip install pandas
+    pip install matplotlib
+
+And run ipython notbook second:
+
+    ipython notbook --pylab inline
+
+Then click on "examples", followed by "Cell -> Run All"
+
+This will take a while on the first run as a quarter million records
+are transferred to an Sqlite file.

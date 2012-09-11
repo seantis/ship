@@ -1,0 +1,12 @@
+*.egg-info
+*.pyc
+*.pyo
+.DS_Store
+.Python
+bin
+build
+dist
+include
+lib
+examples.pdf
+examples.db
