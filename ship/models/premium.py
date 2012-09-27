@@ -1,9 +1,10 @@
-from sqlalchemy.schema import Column, ForeignKey
-from sqlalchemy.orm import deferred, relationship, backref
+from sqlalchemy.schema import Column
+from sqlalchemy.orm import deferred
 from sqlalchemy.types import Boolean, String, Integer, SmallInteger
 
-from ship.config import base
+from ship.config import base, session
 from ship.models.mixins import YearMixin
+from ship.models import Insurer
 
 class Premium(base, YearMixin):
     __tablename__ = 'premiums'
@@ -51,8 +52,14 @@ class Premium(base, YearMixin):
     premium = Column(Integer, nullable=False) # store in cents
 
     # Link to the insurer providing this insurance
-    insurer_id = Column(Integer, ForeignKey('insurers.insurer_id'))
-    insurer = relationship("Insurer", backref=backref('premiums'))
+    insurer_id = Column(Integer, nullable=False)
+
+    @property
+    def insurer(self):
+        query = session.query(Insurer)
+        query = query.filter(Insurer.insurer_id == self.insurer_id)
+        query = query.filter(Insurer.year == self.year)
+        return query.one()
 
     # (Probably) Not Important Fields #
     ###################################
