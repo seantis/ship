@@ -196,6 +196,10 @@ class Premiums(object):
     def for_age(self, age):
         return Premiums(self.q.filter(Premium.age_group==age_group(age)))
 
+    def for_ages(self, ages):
+        groups = map(age_group, ages)
+        return Premiums(self.q.filter(Premium.age_group.in_(groups)))
+
     def for_kids(self):
         return self.for_age(0)
 
