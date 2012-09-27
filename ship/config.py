@@ -1,5 +1,7 @@
 import os.path
 
+from zope.proxy import ProxyBase as SessionProxy, setProxiedObject
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -37,12 +39,15 @@ class DbConfig(object):
         
         assert url or engine
 
-        if self._session:
-            self._session.close()
-
         if url: engine = create_engine(url)
 
-        self._session = scoped_session(sessionmaker(bind=engine))
+        session = scoped_session(sessionmaker(bind=engine))
+
+        if self._session:
+            self._session.close()
+            setProxiedObject(self._session, session)
+        else:
+            self._session = SessionProxy(session)
         
         # import models before creating them to ensure that base.metadata
         # contains all tables needed

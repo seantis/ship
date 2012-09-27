@@ -18,13 +18,16 @@ class TestDb(unittest.TestCase):
         self.assertTrue(config.session() is config.session())
         self.assertEqual(str(config.session.bind.url), 'sqlite:///:memory:')
 
-        # ensure that a change in the db binding leads to a new session
-        old_session = config.session
+    def test_session_property(self):
 
-        self.assertTrue(old_session is config.session)
+        # ensure that a change in the connection leads to a change
+        # in the proxied session
+        from ship.config import session
+        old_bind = session.bind
+
         config.connect()
-
-        self.assertFalse(old_session is config.session())
+        self.assertFalse(old_bind is config._session.bind)
+        self.assertFalse(old_bind is session.bind)
 
     def test_models(self):
         
