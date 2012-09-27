@@ -176,7 +176,7 @@ insurers = Loader(Insurer, 'insurers', load_insurer)
 
 def load_ch_premium(line):
     p = Premium()
-    p.insurer = int(line[0])                        # G_ID
+    p.insurer_id = int(line[0])                     # G_ID
     p.canton = line[1]                              # C_ID
     p.group = line[2]                               # C_GRP
     p.inquiry_year = int(line[3])                   # EJAHR
@@ -203,7 +203,7 @@ ch_premiums = Loader(Premium, 'ch', load_ch_premium)
 
 def load_eu_premium(line):
     p = Premium()
-    p.insurer = int(line[0])                        # G_ID
+    p.insurer_id = int(line[0])                     # G_ID
     p.country = line[1]                             # C_ID
     p.group = line[2]                               # C_GRP
     p.region = line[4]                              # R_ID
