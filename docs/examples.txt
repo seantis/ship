@@ -7,11 +7,7 @@ output in the *examples.pdf* file for your viewing pleasure.
 
 If nothing can stop you however, install the dependencies first:
 
-    pip install ipython
-    pip install numpy
-    pip install scipy
-    pip install pandas
-    pip install matplotlib
+    pip install -r requirements.txt
 
 And run ipython notbook second:
 
