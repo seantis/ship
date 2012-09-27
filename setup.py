@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 try:
-    from setuptools.core import setup
+    from setuptools import setup
 except ImportError:
     from distutils.core import setup
 
@@ -17,6 +17,6 @@ setup(
     test_suite='ship.tests.get_suite',
     install_requires=[
         'sqlalchemy',
-        'zope.proxy'
+        'zope.proxy',
     ]
 )

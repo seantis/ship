@@ -1,15 +1,29 @@
-import os.path
+# This module has the imports inlined because a DBConfig class instance
+# is the actual module. This usually works fine, but some older virtualenv
+# versions seem to have trouble with that.
 
-from zope.proxy import ProxyBase as SessionProxy, setProxiedObject
+# Namely, the imports done outside the functions of DBConfig are None once
+# they are required
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+# Why do it like this? Because it allows for rather nice syntax:
+
+# from ship.config import session
+# session.query()
+
+# which would otherwise be
+
+# from ship import config
+# config.session.query()
+
+# In other words, this makes properties of the DbConfig instance
+# available for import. It'll probably work just fine with
+# future virtualenv releases.
 
 class DbConfig(object):
     
     _session = None
-    
+
+    from sqlalchemy.ext.declarative import declarative_base
     base = declarative_base()
 
     @property
@@ -25,6 +39,8 @@ class DbConfig(object):
     def rawdata_path(self):
         """ Return the absolute path to the rawdata. """
 
+        import os.path
+
         this = os.path.dirname(__file__)
         
         path = os.path.join(this, '../rawdata')
@@ -39,15 +55,18 @@ class DbConfig(object):
         
         assert url or engine
 
+        from zope import proxy
+        from sqlalchemy import create_engine, orm
+
         if url: engine = create_engine(url)
 
-        session = scoped_session(sessionmaker(bind=engine))
+        session = orm.scoped_session(orm.sessionmaker(bind=engine))
 
         if self._session:
             self._session.close()
-            setProxiedObject(self._session, session)
+            proxy.setProxiedObject(self._session, session)
         else:
-            self._session = SessionProxy(session)
+            self._session = proxy.ProxyBase(session)
         
         # import models before creating them to ensure that base.metadata
         # contains all tables needed
