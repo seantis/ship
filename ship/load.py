@@ -144,6 +144,7 @@ class Loader(object):
                         session.add(obj)
             except:
                 session.rollback()
+                raise
             else:
                 # I cannot for the life of me figure out why sqlite won't accept
                 # nested transactions here. So I make due with sequential commits
@@ -168,7 +169,7 @@ towns = Loader(Town, 'towns', load_town)
         
 def load_insurer(line):
     i = Insurer()
-    i.id = int(line[0])
+    i.insurer_id = int(line[0])
     i.name = line[1]
     return i
 

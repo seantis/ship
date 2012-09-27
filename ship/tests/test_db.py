@@ -93,26 +93,26 @@ class TestDb(unittest.TestCase):
 
     def test_load_ch_premiums(self):
 
-        self.assertEqual(load.ch_premiums(limit=1000), 1)
+        self.assertEqual(load.ch_premiums(limit=1000), 2)
 
     def test_load_eu_premiums(self):
 
-        self.assertEqual(load.eu_premiums(limit=1000), 1)
+        self.assertEqual(load.eu_premiums(limit=1000), 2)
 
     def test_load_towns(self):
 
-        self.assertEqual(load.towns(), 1)
+        self.assertEqual(load.towns(), 2)
         self.assertEqual(load.towns(), 0)
-        self.assertEqual(load.towns(update=True), 1)
+        self.assertEqual(load.towns(update=True), 2)
         self.assertEqual(load.towns(year=1999), 0)
 
         config.session.commit()
 
     def test_load_insurers(self):
 
-        self.assertEqual(load.insurers(), 1)
+        self.assertEqual(load.insurers(), 2)
         self.assertEqual(load.insurers(), 0)
-        self.assertEqual(load.insurers(update=True), 1)
+        self.assertEqual(load.insurers(update=True), 2)
         self.assertEqual(load.insurers(year=1999), 0)
 
         config.session.commit()
@@ -121,4 +121,4 @@ class TestDb(unittest.TestCase):
 
         # test if the teardown mechanism of this class work
         # by re-running the first part of test_load_insurers
-        self.assertEqual(load.insurers(), 1)
+        self.assertEqual(load.insurers(), 2)

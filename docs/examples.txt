@@ -12,7 +12,7 @@ If nothing can stop you however, install the dependencies first:
 
 And run ipython notbook second:
 
-    ipython notbook --pylab inline
+    ipython notebook --pylab inline
 
 Then click on "examples", followed by "Cell -> Run All"
 

@@ -51,7 +51,7 @@ class Premium(base, YearMixin):
     premium = Column(Integer, nullable=False) # store in cents
 
     # Link to the insurer providing this insurance
-    insurer_id = Column(Integer, ForeignKey('insurers.id'))
+    insurer_id = Column(Integer, ForeignKey('insurers.insurer_id'))
     insurer = relationship("Insurer", backref=backref('premiums'))
 
     # (Probably) Not Important Fields #
