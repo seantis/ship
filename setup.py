@@ -16,6 +16,7 @@ setup(
     description='Swiss Health Insurance Premiums',
     test_suite='ship.tests.get_suite',
     install_requires=[
-        'sqlalchemy'
+        'sqlalchemy',
+        'zope.proxy'
     ]
 )
