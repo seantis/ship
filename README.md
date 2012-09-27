@@ -22,7 +22,7 @@ are meant for developers. Expect this README to grow in the future.
 
 ## Create Project
 
-    mdkir ship && cd ship
+    mkdir ship && cd ship
     git clone git://github.com/seantis/ship.git .
 
 ## Install SHIP
