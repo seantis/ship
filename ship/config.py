@@ -22,6 +22,7 @@
 class DbConfig(object):
     
     _session = None
+    _file = __file__ # is also weird on older virtualenv versions
 
     from sqlalchemy.ext.declarative import declarative_base
     base = declarative_base()
@@ -41,7 +42,7 @@ class DbConfig(object):
 
         import os.path
 
-        this = os.path.dirname(__file__)
+        this = os.path.dirname(self._file)
         
         path = os.path.join(this, '../rawdata')
         path = os.path.abspath(path)
