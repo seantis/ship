@@ -80,26 +80,21 @@ d3.loadData()
   .attr("stroke", "rgb(200,200,200)")
   .attr("stroke-width", "0.5");
 
-var path = d3.geo.path()
-    .projection(d3.geo.albersUsa()
-    .scale(1400)
-    .translate([680, 360]));
-
 d3.json("query?age=26&year=2013&franchise=300", function(data) {
     var quantize = d3.scale.quantile().domain([100, 500]).range(d3.range(9));
 
     d3.json("data/switzerland.json", function(json) {
-        cantons.selectAll("path")
+        outerg.selectAll("path")
             .data(json.features)
-            .enter().append("svg:path")
+            .enter().append("path")
+            .attr("d", mapProjPath)
             .attr("class", function(d) {
                 for (i = 0;i < data.length; i++) {
                     if (data[i].canton.toLowerCase() == d.id.toLowerCase()) {
                         return "boundary q" + quantize(data[i].premium) + "-9";
                     }
                 }
-            })
-            .attr("d", path);
+            });
     });
 });
 
