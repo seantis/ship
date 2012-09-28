@@ -9,3 +9,4 @@ dist
 include
 lib
 examples.db
+premiums.db
