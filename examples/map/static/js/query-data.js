@@ -39,6 +39,6 @@ var handle_update = function(prices) {
     var quantize = d3.scale.quantile().domain([min, max]).range(d3.range(9));
     for (i = 0; i < prices.length; i++) {
         var id = '#canton-' + prices[i].canton.toLowerCase();
-        $(id).attr('class', 'q' + quantize(prices[i].premium) + '-9');
+        $(id).attr('class', 'canton q' + quantize(prices[i].premium) + '-9');
     }
 };

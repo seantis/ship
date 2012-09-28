@@ -20,6 +20,12 @@ label:hover {
    MAP
    ==========================================================================
 */
+
+.canton:hover {
+    stroke: #383c53 !important;
+    stroke-width: 1px;
+}
+
 div#map {
   background: #fff;
   border: none;
