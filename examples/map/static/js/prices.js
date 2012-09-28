@@ -54,89 +54,17 @@ d3.loadData()
   .domain([0, d3.max(d3.values(data.speeds))])
   .range([blue, red]);
 
-  $("#time_slider")
+  var deductibleOptions = [300, 500, 1000, 1500, 2000, 2500];
+  $("#deductible_slider")
   .slider({
     orientation: 'horizontal',
     min: 0,
-    max: 23,
-    value: 9,
+    max: 5,
+    value: 1,
     step: 1,
-    //slide: updateHour,
-    //change: updateHour,
-    slide: function(e, ui) { updateHour(false, true); },
-    change: function(e, ui) { updateHour(false, false); }
-  });
-
-  $("#time_slider").slider.prototype.nextStep = function() {
-    //console.log("called next step");
-    if(value < max){
-      this.slider( "option" , "value", value + step);
-    }else{
-      this.slider( "option" , "value", min);
+    slide: function(event, ui) {
+      $('#deductibleLabel').text(deductibleOptions[ui.value]);
     }
-  };
-
-  var animateSlider = (function(){
-    var s = $("#time_slider");
-    var p = $("#time_play_btn");
-
-    var running = false;
-
-
-    function toggle() {
-      //console.log("toggleling" + running);
-      if(running){
-        stop();
-        p.removeClass("running");
-        p.attr("title", "Play animation");
-      }else{
-        start();
-        p.addClass("running");
-        p.attr("title", "Pause animation");
-      }
-    };
-
-    function start() {
-      running = true;
-      p.val("pause");
-      run();
-      p.addClass("running");
-      p.attr("title", "Pause animation");
-    };
-
-    function stop() {
-      running = false;
-      p.val("play");
-      p.removeClass("running");
-      p.attr("title", "Play animation");
-    };
-
-    function run() {
-      //console.log("called running");
-      if (!running)
-      return;
-
-      var sValue = s.slider( "option" , "value" );
-      var sMin = s.slider( "option" , "min" );
-      var sMax = s.slider( "option" , "max" );
-      var sStep = s.slider( "option" , "step" );
-
-      if(sValue < sMax){
-        s.slider( "option" , "value", sValue + sStep);
-      }else{
-        s.slider( "option" , "value", sMin);
-      }
-      setTimeout(run, 1000);
-    }
-
-    return {
-      toggle: toggle
-    };
-  })();
-
-
-  $("#time_play_btn").click(  function(e, ui) {
-    animateSlider.toggle();
   });
 
   $('g#bboxg').data('bbox', bbox(data));
@@ -190,17 +118,12 @@ d3.loadData()
   .enter().append('circle')
   .attr('class', 'stations');
 
-  function getSelectedHourText() {
-    var hour = getSelectedHour();
-    return hour + ':00 - ' + (hour+1) + ':00';;
+  function getSelectedDeductible() {
+    return +$("#deductibleLabel").text();
   }
 
-  function getSelectedHour() {
-    return +$("#time_slider").slider("option", "value");
-  }
-
-  $('#showStationsChk').click(function() { updateHour(true); });
-  $('#showRailwaysChk').click(function() { updateHour(true); });
+  $('#showStationsChk').click(function() { updatePrices(true); });
+  $('#showRailwaysChk').click(function() { updatePrices(true); });
   $('#startArrivalsAnim').click(startArrivalsAnim);
   $('#stopArrivalsAnim').click(stopArrivalsAnim);
 
@@ -211,7 +134,7 @@ d3.loadData()
 
   function stopArrivalsAnim() {
     arrivalsAnimPlaying = false;
-    updateHour();
+    updatePrices();
   }
 
   function updateProjection() {
@@ -226,13 +149,13 @@ d3.loadData()
     .attr("d", mapProjPath);
   }
 
-  function updateHour(force, noAnim) {
-    
+  function updatePrices(force, noAnim) {
+
     if (force) noAnim = true;
     var animDuration = 1000;
 
-    var hour = getSelectedHour();
-    $('#hourLabel').html(getSelectedHourText());
+    var deductible = getSelectedDeductible();
+    $('#deductibleLabel').html(getSelectedDeductible());
 
     var showRailways = $('#showRailwaysChk').is(':checked');
     var showStations = $('#showStationsChk').is(':checked');
@@ -253,13 +176,10 @@ d3.loadData()
         } 
       })
       .attr('stroke', function(d, i) {
-        if (showRailways) {
-          var edgeid = +d.properties.edge_id;
-          var speed = data.speeds[edgeid];
-          return speedColorScale(speed > 0 ? speed : 0);
-        } else {
-          return "#999";
-        }
+        var edgeid = +d.properties.edge_id;
+        var speed = data.speeds[edgeid];
+
+        return speedColorScale(speed > 0 ? speed : 0);
       });
     }
     
@@ -285,14 +205,14 @@ d3.loadData()
         .duration(noAnim ? 0 : animDuration)
         .attr('r', function(d, i) {
           var station_id = +d.properties.station_id;
-          return 0.1 + Math.sqrt(getStationTrainCount(station_id, getSelectedHour()));
+          return 0.1 + Math.sqrt(getStationTrainCount(station_id, getSelectedDeductible()));
         });
       }
     }
   }
 
   updateProjection();
-  updateHour(true);
+  updatePrices(true);
 
   $('svg circle.stations').tipsy({
     gravity: 's',
@@ -302,8 +222,8 @@ d3.loadData()
     title: function() {
       var d = this.__data__.properties;
       return  '<b>'+d.name + '</b><br>' + 
-      trainCountToText(getStationTrainCount(d.station_id, getSelectedHour())) +
-      ' stop here<br> between ' + getSelectedHourText().replace('-',' and ');
+      trainCountToText(getStationTrainCount(d.station_id, getSelectedDeductible())) +
+      ' stop here<br> between ' + getSelectedDeductible();
     }
   });
 
@@ -315,8 +235,8 @@ d3.loadData()
     title: function() {
       var d = this.__data__.properties;
       var edgeid = +d.edge_id;
-      return  '<b>'+trainCountToText(getTrainCount(edgeid, getSelectedHour())) + '</b> pass here<br> ' +
-      ' between ' +getSelectedHourText().replace('-',' and ')
+      return  '<b>'+trainCountToText(getTrainCount(edgeid, getSelectedDeductible())) + '</b> pass here<br> ' +
+      ' between ' +getSelectedDeductible()
       +'<br>'+
       ' at avg speed of <b>' + data.speeds[edgeid] + ' km/h</b>' 
       ;

@@ -243,65 +243,42 @@ div#map {
 #time h2 { 
   padding-bottom:5px;
 }
-#hourLabel { 
+#deductibleLabel {
   float: right;
   text-align: right;
   width: 50%;
   display:inline-block;
 }
-#time #time_play_btn{
-  background: url(../img/icon_sprite.png) 0 -50px no-repeat;
-  display: block;
-  float: left;
-  width: 18px;
-  height: 18px;
-  margin: 0;
-  text-indent: -9999px;
+#time #deductible_slider{
+  margin-top: 2px;
 }
-#time #time_play_btn:hover{
-  background-position: -68px -50px;
+/* ageGroups */
+#ageGroups{
 }
-#time #time_play_btn:active{
-  background-position: -136px -50px;
-}
-#time #time_play_btn.running{
-  background-position: -136px -100px;
-}
-#time #time_play_btn.running:hover{
-  background-position: -68px -100px;
-}
-#time #time_play_btn.running:active{
-  background-position: -68px -100px;
-}
-#time #time_slider{
-  margin: 2px 0 0 26px;
-}
-/* FOCUS */
-#focus{
-}
-#focus ul{
+#ageGroups ul{
   padding: 0;
   overflow: hidden;
   margin-bottom: 0;
 }
-#focus ul li{
-  padding: 0 0 20px 2px;
+#ageGroups ul li{
+  padding: 0 0 5px 2px;
   list-style: none;
   float: left;
+  clear: both
 }
-#focus ul li:last-child{
+#ageGroups ul li:last-child{
   padding-bottom: 0;
 }
-#focus ul li input {
+#ageGroups ul li input {
  margin: 0px 5px 0px 0px;
 }
-#focus ul li p.explain{
+#ageGroups ul li p.explain{
   font-size: 12px;
   color:#999; 
   padding: 5px 10px 0 20px;
   margin: 0;
 }
-#focus ul li#animation_toggle{
+#ageGroups ul li#animation_toggle{
   width: 100%;
   clear: both;
   float: none;
