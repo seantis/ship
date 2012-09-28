@@ -12,10 +12,12 @@
     <link href="{{ url_for('static', filename='css/custom-theme/jquery-ui-1.8.18.custom.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ url_for('static', filename='css/tipsy.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/colorbrewer.css') }}"/>
+
   </head>
   <body>
     <div id="overlay"></div>
-    <div id="map"></div>
+    <div id="map" class="RdYlGn"></div>
     <div id="panel" class="unfolded">
       <div class="section" id="title">
         <a href="http://make.opendata.ch/"><img src="{{ url_for('static', filename='img/make.opendata.ch_logo_s.png') }}"></a>
