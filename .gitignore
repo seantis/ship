@@ -7,6 +7,6 @@ bin
 build
 dist
 include
-lib
+./lib
 examples.db
 premiums.db
