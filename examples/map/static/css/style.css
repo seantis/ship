@@ -252,33 +252,33 @@ div#map {
 #time #deductible_slider{
   margin-top: 2px;
 }
-/* ageGroups */
-#ageGroups{
+/* radios */
+.radios{
 }
-#ageGroups ul{
+.radios ul{
   padding: 0;
   overflow: hidden;
   margin-bottom: 0;
 }
-#ageGroups ul li{
+.radios ul li{
   padding: 0 0 5px 2px;
   list-style: none;
   float: left;
   clear: both
 }
-#ageGroups ul li:last-child{
+.radios ul li:last-child{
   padding-bottom: 0;
 }
-#ageGroups ul li input {
+.radios ul li input {
  margin: 0px 5px 0px 0px;
 }
-#ageGroups ul li p.explain{
+.radios ul li p.explain{
   font-size: 12px;
   color:#999; 
   padding: 5px 10px 0 20px;
   margin: 0;
 }
-#ageGroups ul li#animation_toggle{
+.radios ul li#animation_toggle{
   width: 100%;
   clear: both;
   float: none;
