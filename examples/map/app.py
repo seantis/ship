@@ -6,7 +6,6 @@ import json
 
 from ship.models import Premium
 from sqlalchemy import func
-from pprint import pformat
 
 app = Flask(__name__)
 manager = Manager(app)
