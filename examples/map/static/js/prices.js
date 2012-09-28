@@ -63,7 +63,7 @@ d3.loadData()
     },
     change: function(event, ui) {
       update_premiums();
-    },
+    }
   });
 
   $('g#bboxg').data('bbox', bbox(data));
@@ -80,18 +80,28 @@ d3.loadData()
   .attr("stroke", "rgb(200,200,200)")
   .attr("stroke-width", "0.5");
 
-d3.json("query?age=26&year=2013&franchise=300", function(data) {
-    var quantize = d3.scale.quantile().domain([100, 500]).range(d3.range(9));
+d3.json("query?age=26&year=2013&franchise=300", function(prices) {
+    d3.json("data/switzerland.json", function(cantons) {
+        var min = 10000000, max = 0;
+        for (i = 0; i < prices.length; i++) {
+            if (prices[i].premium < min) {
+                min = prices[i].premium;
+            }
 
-    d3.json("data/switzerland.json", function(json) {
+            if (prices[i].premium > max) {
+                max = prices[i].premium;
+            }
+        }
+
+        var quantize = d3.scale.quantile().domain([min, max]).range(d3.range(9));
         outerg.selectAll("path")
-            .data(json.features)
+            .data(cantons.features)
             .enter().append("path")
             .attr("d", mapProjPath)
             .attr("class", function(d) {
-                for (i = 0;i < data.length; i++) {
-                    if (data[i].canton.toLowerCase() == d.id.toLowerCase()) {
-                        return "boundary q" + quantize(data[i].premium) + "-9";
+                for (i = 0;i < prices.length; i++) {
+                    if (prices[i].canton.toLowerCase() == d.id.toLowerCase()) {
+                        return "boundary q" + quantize(prices[i].premium) + "-9";
                     }
                 }
             });
