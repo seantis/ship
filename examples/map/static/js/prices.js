@@ -17,7 +17,7 @@ function bbox(data) {
   bottom = -Infinity,
   right = -Infinity,
   top = Infinity;
-  data.boundary.features.forEach(function(feature) {
+  data.cantons.features.forEach(function(feature) {
     d3.geo.bounds(feature).forEach(function(coords) {
       var x = coords[0],
       y = coords[1];
@@ -32,16 +32,13 @@ function bbox(data) {
 }
 
 d3.loadData()
-.json('boundary', 'data/switzerland_boundaries.json')
+.json('cantons', 'data/switzerland.json')
 .onload(function(data) {
-
-
   var outerg = vis.append('g').attr('id', 'bboxg');
-  var cantons = vis.append('svg:g').attr('id', 'cantons');
   var mapProj = d3.geo.mercator();
 
   setNewProjectionSize = function(width, height) {
-    fitProjection(mapProj, data.boundary, [[0,0],[width, height]], true);
+    fitProjection(mapProj, data.cantons, [[0,0],[width, height]], true);
     if(updateProjection) updateProjection();
   }
   setNewProjectionSize(width, height);
@@ -49,7 +46,6 @@ d3.loadData()
   var speedColorScale = d3.scale.linear()
   .domain([0, d3.max(d3.values(data.speeds))])
   .range([blue, red]);
-
   var deductibleOptions = [300, 500, 1000, 1500, 2000, 2500];
   $("#deductible_slider")
   .slider({
@@ -72,82 +68,15 @@ d3.loadData()
   var mapProjPath = d3.geo.path().projection(mapProj);
 
   outerg.selectAll("path")
-  .data(data.boundary.features)
-  .enter().append("path")
-  .attr("class", "boundary")
-  .attr("d", mapProjPath)
-  .attr("fill", "rgb(230,230,230)")
-  .attr("stroke", "rgb(200,200,200)")
-  .attr("stroke-width", "0.5");
-
-d3.json("query?age=26&year=2013&franchise=300", function(prices) {
-    d3.json("data/switzerland.json", function(cantons) {
-        var min = 10000000, max = 0;
-        for (i = 0; i < prices.length; i++) {
-            if (prices[i].premium < min) {
-                min = prices[i].premium;
-            }
-
-            if (prices[i].premium > max) {
-                max = prices[i].premium;
-            }
-        }
-
-        var quantize = d3.scale.quantile().domain([min, max]).range(d3.range(9));
-        outerg.selectAll("path")
-            .data(cantons.features)
-            .enter().append("path")
-            .attr("d", mapProjPath)
-            .attr("class", function(d) {
-                for (i = 0;i < prices.length; i++) {
-                    if (prices[i].canton.toLowerCase() == d.id.toLowerCase()) {
-                        return "boundary q" + quantize(prices[i].premium) + "-9";
-                    }
-                }
-            });
-    });
-});
-
-
-  function getTrainCount(edgeid, hour) {
-    var hours = data.trains[edgeid];
-    if (hours !== undefined  &&  hours[hour] !== undefined) {
-      return hours[hour];
-    }
-    return 0;
-  }
-
-  function trainCountToText(count) {
-    if (count === 0) return 'No trains';
-    if (count === 1) return 'One train';
-    return count + ' trains';
-  }
-
-  function getStationTrainCount(stationid, hour) {
-    var hours = data.stationTrainsByHour[stationid];
-    if (hours !== undefined  &&  hours[hour] !== undefined) {
-      return hours[hour];
-    }
-    return 0;
-  }
+    .data(data.cantons.features)
+    .enter().append("path")
+    .attr("class", function(d) {
+        return "boundary canton-" + d.id.toLowerCase();
+      })
+    .attr("d", mapProjPath);
 
   function getSelectedDeductible() {
     return +$("#deductibleLabel").text();
-  }
-
-  $('#showStationsChk').click(function() { updatePrices(true); });
-  $('#showRailwaysChk').click(function() { updatePrices(true); });
-  $('#startArrivalsAnim').click(startArrivalsAnim);
-  $('#stopArrivalsAnim').click(stopArrivalsAnim);
-
-  function startArrivalsAnim() {
-    arrivalsAnimPlaying = true;
-    updateArrivals(60 * 10);
-  }
-
-  function stopArrivalsAnim() {
-    arrivalsAnimPlaying = false;
-    updatePrices();
   }
 
   function updateProjection() {
