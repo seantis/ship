@@ -55,6 +55,12 @@ div#map {
 #map path.segments:hover {
   stroke:rgb(236, 112, 20);
 }
+
+#map path {
+  stroke: #fff;
+  stroke-width: 1.2px;
+}
+
 .compass .back {
   fill: #ddd;
   fill-opacity: 0.8;
