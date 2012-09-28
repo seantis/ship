@@ -42,6 +42,17 @@
           <div id="deductible_slider"></div>
         </div>
       </div>
+      <div class="section" id="year">
+        <h2>Year</h2>
+        <ul>
+        {% for year in years %}
+          <li>
+            <input name="yearRadio" type="radio" id="yearRadio{{ year }}" value="{{ year }}" {% if loop.first %}checked="checked"{% endif %}>
+            <label for="yearRadio{{ year }}">{{ year }}</label>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
 
       <div class="section" id="legend">
         <h2>Legend</h2>

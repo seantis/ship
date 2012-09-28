@@ -14,7 +14,7 @@ ship.config.connect('sqlite:///premiums.db')
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('index.html', years=ship.db.years())
 
 @app.route('/data/<path:filename>')
 def data(filename):
