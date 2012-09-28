@@ -80,7 +80,7 @@ d3.loadData()
   }
 
   function updateProjection() {
-    outerg.selectAll('path.segments')
+    outerg.selectAll('path')
     .attr('d', mapProjPath);
 
     outerg.selectAll('circle.stations')
