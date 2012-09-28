@@ -70,8 +70,8 @@ d3.loadData()
   outerg.selectAll("path")
     .data(data.cantons.features)
     .enter().append("path")
-    .attr("class", function(d) {
-        return "boundary canton-" + d.id.toLowerCase();
+    .attr("id", function(d) {
+          return "canton-" + d.id.toLowerCase();
       })
     .attr("d", mapProjPath);
 
