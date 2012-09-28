@@ -17,7 +17,7 @@ function bbox(data) {
   bottom = -Infinity,
   right = -Infinity,
   top = Infinity;
-  data.segments.features.forEach(function(feature) {
+  data.boundary.features.forEach(function(feature) {
     d3.geo.bounds(feature).forEach(function(coords) {
       var x = coords[0],
       y = coords[1];
@@ -32,20 +32,17 @@ function bbox(data) {
 }
 
 d3.loadData()
-.json('segments', 'data/edges-sbb.json')
-.json('stations', 'data/stations-sbb.json')
 .json('boundary', 'data/switzerland_boundaries.json')
-.json('trains',  'data/edge_hours_compressed.json')
-.json('stationTrainsByHour',  'data/station_hours_compressed.json')
-.json('speeds',  'data/avg_speeds_per_edge.json')
+.json('cantons', 'data/switzerland.json')
 .onload(function(data) {
 
 
   var outerg = vis.append('g').attr('id', 'bboxg');
+  var cantons = vis.append('svg:g').attr('id', 'cantons');
   var mapProj = d3.geo.mercator();
 
   setNewProjectionSize = function(width, height) {
-    fitProjection(mapProj, data.segments, [[0,0],[width, height]], true);
+    fitProjection(mapProj, data.boundary, [[0,0],[width, height]], true);
     if(updateProjection) updateProjection();
   }
   setNewProjectionSize(width, height);
@@ -81,14 +78,15 @@ d3.loadData()
   .attr("stroke", "rgb(200,200,200)")
   .attr("stroke-width", "0.5");
 
-  var segmentsGroup = outerg.append("g").attr('class','segments');
-  
-  segmentsGroup.selectAll('path.segments')
-  .data(data.segments.features)
-  .enter().append('path')
-  .attr('class', 'segments')
-  .attr('stroke', 'black')
-  .attr('fill', 'none');
+outerg.selectAll("path")
+    .data(data.cantons.features)
+    .enter().append("path")
+    .attr("class", "boundary")
+    .attr("d", mapProjPath)
+    .attr("fill", "rgb(230,230,230)")
+    .attr("stroke", "rgb(200,200,200)")
+    .attr("stroke-width", "0.5");
+
 
   function getTrainCount(edgeid, hour) {
     var hours = data.trains[edgeid];
@@ -111,12 +109,6 @@ d3.loadData()
     }
     return 0;
   }
-
-  var stationsGroup = outerg.append("g").attr('class','stations');
-  stationsGroup.selectAll('circle.stations')
-  .data(data.stations.features)
-  .enter().append('circle')
-  .attr('class', 'stations');
 
   function getSelectedDeductible() {
     return +$("#deductibleLabel").text();
