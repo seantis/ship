@@ -25,12 +25,18 @@ def query():
     age = request.args.get('age', 19, type=int)
     franchise = request.args.get('franchise', 300, type=int)
     year = request.args.get('year', 2013, type=int)
+    accident = request.args.get('accident', "false", type=str)
 
     p = ship.db.Premiums()
     p = p.for_swiss()
     p = p.for_year(year)
     p = p.for_age(age)
     p = p.for_franchises((franchise, ))
+    
+    if accident == "true":
+        p = p.with_accident();
+    else:
+        p = p.without_accident();
 
     query = p.q
     query = query.with_entities(Premium.canton, func.avg(Premium.price))
