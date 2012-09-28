@@ -261,10 +261,9 @@ div#map {
   margin-bottom: 0;
 }
 .radios ul li{
-  padding: 0 0 5px 2px;
+  padding: 0 0 5px 25px;
   list-style: none;
   float: left;
-  clear: both
 }
 .radios ul li:last-child{
   padding-bottom: 0;
