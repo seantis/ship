@@ -169,19 +169,16 @@ d3.loadData()
     }
   });
 
-  $('svg path.segments').tipsy({
+  $('svg path').tipsy({
     gravity: 's',
     html: true,
     delayIn: 300,
     delayOut: 100,
     title: function() {
-      var d = this.__data__.properties;
-      var edgeid = +d.edge_id;
-      return  '<b>'+trainCountToText(getTrainCount(edgeid, getSelectedDeductible())) + '</b> pass here<br> ' +
-      ' between ' +getSelectedDeductible()
-      +'<br>'+
-      ' at avg speed of <b>' + data.speeds[edgeid] + ' km/h</b>' 
-      ;
+      if(this.__data__) {
+        var d = this.__data__.properties;
+        return d.Name
+      }
     }
   });
 
