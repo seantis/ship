@@ -1,0 +1,5 @@
+in your ship virtual environment run
+
+    pip install -r requirements.txt
+    python app.py load
+    python app.py runserver
