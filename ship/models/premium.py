@@ -1,6 +1,7 @@
 from sqlalchemy.schema import Column
 from sqlalchemy.orm import deferred
 from sqlalchemy.types import Boolean, String, Integer, SmallInteger
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from ship.config import base, session
 from ship.models.mixins import YearMixin
@@ -50,6 +51,10 @@ class Premium(base, YearMixin):
 
     # Premium (in cents/rappen, to avoid floating point issues)
     premium = Column(Integer, nullable=False) # store in cents
+
+    @hybrid_property
+    def price(self):
+        return self.premium / 100.0
 
     # Link to the insurer providing this insurance
     insurer_id = Column(Integer, nullable=False)
