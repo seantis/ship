@@ -27,11 +27,11 @@
         <h2>Age Group</h2>
         <ul>
           <li>
-            <input name="ageRadio" type="radio" id="ageGroup1" checked="checked">
+            <input name="ageRadio" type="radio" id="ageGroup1" checked="checked" value="19">
             <label for="ageGroup1">19-25</label>
           </li>
           <li>
-            <input name="ageRadio" type="radio" id="ageGroup2">
+            <input name="ageRadio" type="radio" id="ageGroup2" value="26">
             <label for="ageGroup2">26+</label>
           </li>
         </ul>
@@ -103,6 +103,7 @@
 
   	<script type="text/javascript" src="{{ url_for('static', filename='lib/d3.v2.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='lib/polymaps.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/query-data.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/init-map.js') }}"></script>
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/fit-projection.js') }}"></script>

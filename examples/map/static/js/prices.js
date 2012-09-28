@@ -61,7 +61,10 @@ d3.loadData()
     step: 1,
     slide: function(event, ui) {
       $('#deductibleLabel').text(deductibleOptions[ui.value]);
-    }
+    },
+    change: function(event, ui) {
+      update_premiums();
+    },
   });
 
   $('g#bboxg').data('bbox', bbox(data));
