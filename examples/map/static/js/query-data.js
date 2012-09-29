@@ -99,7 +99,8 @@ var handle_update = function(prices) {
         } else {
 	        $(id).attr('class', 'canton Reds q' + quantizeUpper(prices[i].premium) + '-9');
         }
-//        console.log(data.cantons);
+        $(id).data("price",prices[i].premium);
+        console.log($(id).data("price"));
     }
     console.log('data here');
 };

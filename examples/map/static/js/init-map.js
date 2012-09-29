@@ -135,12 +135,10 @@ $(document).bind('stf-ready', function(){
 
     $('.cantons').each(function(i) {
         $(this).mouseenter(function(e) {
-        	var toolTipHtml = ""+this.__data__.properties.Name;
-        	//+"<div class=\"test\">test</div>";
+        	var toolTipHtml = ""+this.__data__.properties.Name+"<div class=\"test\">"+$(this).data("price")+"</div>";
             $('#tooltip').css({
                        left:  e.pageX + 20,
-                       top:   e.pageY - 10,
-                       visibility: 'visible'
+                       top:   e.pageY - 10
             }).html(toolTipHtml).fadeIn();
             $('.canton.selected').each(function(i) { $(this).removeClass('selected') });
             $(this).addClass('selected');
