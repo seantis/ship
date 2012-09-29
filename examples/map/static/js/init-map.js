@@ -140,10 +140,10 @@ $(document).bind('stf-ready', function(){
         	if ($(this).data("price")!=undefined) {
         		toolTipHtml += "<div class=\"tt_price\">"+$(this).data("price")+" CHF</div>";
         	}
-        	if ($(this).data("tt_docs10000")!=undefined) {
+        	if ($(this).data("docs10000")!=undefined) {
         		toolTipHtml += "<div class=\"tt_docs10000\">"+$(this).data("docs10000")+"</div>";
         	}
-        	if ($(this).data("tt_hospitalbeds")!=undefined) {
+        	if ($(this).data("hospitalbeds")!=undefined) {
         		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+$(this).data("hospitalbeds")+"</div>";
         	}
         		
