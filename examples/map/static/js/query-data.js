@@ -4,12 +4,16 @@ var update_premiums = function() {
     var year = $('input[name="yearRadio"]:checked').val();
     var age = $('input[name="ageRadio"]:checked').val();
     var franchise = $('#deductibleLabel').text();
+    var accident = $('input[name="accidentRadio"]:checked').val();
     
-    query_premiums(year, age, franchise, handle_update);
+    query_premiums(year, age, franchise, accident, handle_update);
 };
 
-var query_premiums = function(year, age, franchise, callback) {
-    var url = '/query?age=' + age + '&year=' + year + '&franchise=' + franchise;
+var query_premiums = function(year, age, franchise, accident, callback) {
+    var url = '/query?age=' + age;
+    url += '&year=' + year;
+    url += '&franchise=' + franchise;
+    url += '&accident=' + accident;
 
     if (url in query_cache) {
         callback(query_cache[url]);
@@ -48,9 +52,9 @@ var handle_update = function(prices) {
         var id = '#canton-' + prices[i].canton.toLowerCase();
         if (prices[i].premium <= mean) {
         	var invertRange = 9- quantizeLower(prices[i].premium);
-	        $(id).attr('class', 'Greens q' + invertRange + '-9');
+	        $(id).attr('class', 'canton Greens q' + invertRange + '-9');
         } else {
-	        $(id).attr('class', 'Reds q' + quantizeUpper(prices[i].premium) + '-9');
+	        $(id).attr('class', 'canton Reds q' + quantizeUpper(prices[i].premium) + '-9');
         }
     }
 };

@@ -56,8 +56,6 @@ d3.loadData()
     step: 1,
     slide: function(event, ui) {
       $('#deductibleLabel').text(deductibleOptions[ui.value]);
-    },
-    change: function(event, ui) {
       update_premiums();
     }
   });
@@ -73,7 +71,11 @@ d3.loadData()
     .attr("id", function(d) {
           return "canton-" + d.id.toLowerCase();
       })
-    .attr("d", mapProjPath);
+    .attr("d", mapProjPath)
+    .append("svg:title")
+      .text(function(d) {
+          return d.properties.Name;
+      });
 
   function getSelectedDeductible() {
     return +$("#deductibleLabel").text();
