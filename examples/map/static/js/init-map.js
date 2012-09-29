@@ -135,7 +135,18 @@ $(document).bind('stf-ready', function(){
 
     $('.cantons').each(function(i) {
         $(this).mouseenter(function(e) {
-        	var toolTipHtml = ""+this.__data__.properties.Name+"<div class=\"test\">"+$(this).data("price")+" CHF</div>";
+        	var toolTipHtml = ""+this.__data__.properties.Name;
+        	
+        	if ($(this).data("price")!=undefined) {
+        		toolTipHtml += "<div class=\"tt_price\">"+$(this).data("price")+" CHF</div>";
+        	}
+        	if ($(this).data("docs10000")!=undefined) {
+        		toolTipHtml += "<div class=\"tt_docs10000\">"+$(this).data("docs10000")+"</div>";
+        	}
+        	if ($(this).data("hospitalbeds")!=undefined) {
+        		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+$(this).data("hospitalbeds")+"</div>";
+        	}
+        		
             $('#tooltip').css({
                        left:  e.pageX + 20,
                        top:   e.pageY - 10
