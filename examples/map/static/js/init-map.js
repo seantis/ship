@@ -135,7 +135,7 @@ $(document).bind('stf-ready', function(){
 
     $('.cantons').each(function(i) {
         $(this).mouseenter(function(e) {
-        	var toolTipHtml = ""+this.__data__.properties.Name+"<div class=\"test\">"+$(this).data("price")+"</div>";
+        	var toolTipHtml = ""+this.__data__.properties.Name+"<div class=\"test\">"+$(this).data("price")+" CHF</div>";
             $('#tooltip').css({
                        left:  e.pageX + 20,
                        top:   e.pageY - 10
