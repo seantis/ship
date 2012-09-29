@@ -135,29 +135,37 @@ $(document).bind('stf-ready', function(){
 
     $('.cantons').each(function(i) {
         $(this).mouseenter(function(e) {
-        	
         	var toolTipHtml = ""+this.__data__.properties.Name+"<div class=\"test\">"+$(this).data("price")+"</div>";
             $('#tooltip').css({
                        left:  e.pageX + 20,
-                       top:   e.pageY - 10,
-                       visibility: 'visible'
+                       top:   e.pageY - 10
             }).html(toolTipHtml).fadeIn();
+            $('.canton.selected').each(function(i) { $(this).removeClass('selected') });
+            $(this).addClass('selected');
 
             // move element "on top of" all others within the same grouping
-            this.parentNode.appendChild(this); 
+            this.parentNode.appendChild(this);
             clearTimeout(hideTimeout);
         });
         $(this).mouseleave(function(e) {
-            // move element to the back
-            this.parentNode.insertBefore(this, this.parentNode.firstChild);
             if(hideTimeout) {
                 clearTimeout(hideTimeout);
             }
+            var that = this;
             hideTimeout = setTimeout(function() {
+                // move element to the back
+                that.parentNode.insertBefore(that, that.parentNode.firstChild);
                 $('#tooltip').fadeOut(); 
+                $(that).removeClass('selected');
             }, 100);
         });
 
     });
+
+    // catch mouseenter to avoid hiding the tooltip
+    $('#tooltip').mouseenter(function(e) {
+        clearTimeout(hideTimeout);
+    });
+
 });
 
