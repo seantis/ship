@@ -53,10 +53,12 @@ var handle_update = function(prices) {
         var id = '#canton-' + prices[i].canton.toLowerCase();
         if (prices[i].premium <= mean) {
         	var invertRange = 9- quantizeLower(prices[i].premium);
-	        $(id).attr('class', 'canton Greens q' + invertRange + '-9');
+	        $(id).attr('class', 'canton Blues q' + invertRange + '-9');
         } else {
 	        $(id).attr('class', 'canton Reds q' + quantizeUpper(prices[i].premium) + '-9');
         }
+//        console.log(data.cantons);
     }
+    
     console.log('data here');
 };
