@@ -138,7 +138,7 @@ $(document).bind('stf-ready', function(){
         	var toolTipHtml = ""+this.__data__.properties.Name;
         	
         	if ($(this).data("price")!=undefined) {
-        		toolTipHtml += "<div class=\"tt_price\">"+$(this).data("price")+"</div>";
+        		toolTipHtml += "<div class=\"tt_price\">"+$(this).data("price")+" CHF</div>";
         	}
         	if ($(this).data("tt_docs10000")!=undefined) {
         		toolTipHtml += "<div class=\"tt_docs10000\">"+$(this).data("docs10000")+"</div>";
