@@ -135,11 +135,14 @@ $(document).bind('stf-ready', function(){
 
     $('.cantons').each(function(i) {
         $(this).mouseenter(function(e) {
+        	
+        	var toolTipHtml = ""+this.__data__.properties.Name;
+        	//+"<div class=\"test\">test</div>";
             $('#tooltip').css({
                        left:  e.pageX + 20,
                        top:   e.pageY - 10,
                        visibility: 'visible'
-            }).html(this.__data__.properties.Name).fadeIn();
+            }).html(toolTipHtml).fadeIn();
 
             // move element "on top of" all others within the same grouping
             this.parentNode.appendChild(this); 
