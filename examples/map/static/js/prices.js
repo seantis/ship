@@ -61,7 +61,6 @@ d3.loadData()
   });
 
   $('g#bboxg').data('bbox', bbox(data));
-  $(document).trigger('stf-ready');
 
   var mapProjPath = d3.geo.path().projection(mapProj);
 
@@ -71,11 +70,14 @@ d3.loadData()
     .attr("id", function(d) {
           return "canton-" + d.id.toLowerCase();
       })
-    .attr("d", mapProjPath)
-    .append("svg:title")
-      .text(function(d) {
-          return d.properties.Name;
-      });
+    .attr("class", "cantons")
+    .attr("d", mapProjPath);
+//    .append("svg:title")
+//      .text(function(d) {
+//          return d.properties.Name;
+//      });
+
+  $(document).trigger('stf-ready');
 
   function getSelectedDeductible() {
     return +$("#deductibleLabel").text();
@@ -168,19 +170,6 @@ d3.loadData()
       return  '<b>'+d.name + '</b><br>' + 
       trainCountToText(getStationTrainCount(d.station_id, getSelectedDeductible())) +
       ' stop here<br> between ' + getSelectedDeductible();
-    }
-  });
-
-  $('svg path').tipsy({
-    gravity: 's',
-    html: true,
-    delayIn: 300,
-    delayOut: 100,
-    title: function() {
-      if(this.__data__) {
-        var d = this.__data__.properties;
-        return d.Name
-      }
     }
   });
 

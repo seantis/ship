@@ -57,4 +57,5 @@ var handle_update = function(prices) {
 	        $(id).attr('class', 'canton Reds q' + quantizeUpper(prices[i].premium) + '-9');
         }
     }
+    console.log('data here');
 };

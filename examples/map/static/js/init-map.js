@@ -130,5 +130,15 @@ $(document).bind('stf-ready', function(){
     $('input[name="ageRadio"], input[name="yearRadio"], input[name="accidentRadio"]').change(function() {
         update_premiums();
     });
+
+    $('.cantons').each(function(i) {
+        $(this).mousemove(function(e) {
+            $('#tooltip').css({
+                       left:  e.pageX + 20,
+                       top:   e.pageY - 10,
+                       visibility: 'visible'
+            }).html(this.__data__.properties.Name);
+        });
+    });
 });
 
