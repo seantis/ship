@@ -74,19 +74,20 @@ var query_premiums = function(year, age, franchise, accident, types, insurer, ca
 };
 
 var handle_update = function(prices) {
-    var min = 140, max = 460, mean = 0;
+    var min = 140, max = 460, mean = 300;
     var sum=0;
     for (var i = 0; i < prices.length; i++) {
       if (prices[i].premium < min) {
-          min = prices[i].premium;
+// fix in scale          min = prices[i].premium;
       }
 
       if (prices[i].premium > max) {
-          max = prices[i].premium;
+// fix in scale          max = prices[i].premium;
       }
       sum += prices[i].premium;
     }
-    mean = sum / prices.length;
+    
+//    mean = sum / prices.length;
 
     var quantizeUpper = d3.scale.quantile().domain([mean, max]).range(d3.range(9));
     var quantizeLower = d3.scale.quantile().domain([mean, min]).range(d3.range(9));
