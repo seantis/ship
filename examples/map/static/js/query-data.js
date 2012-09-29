@@ -120,9 +120,17 @@ var handle_update = function(prices) {
         var id = '#canton-' + canton.toLowerCase();
         if (prices[i].premium <= mean) {
         	var invertRange = 9- quantizeLower(prices[i].premium);
-	        $(id).attr('class', 'canton Blues q' + invertRange + '-9');
+        	if (prices[i].premium < min) {
+        		$(id).attr('class', 'canton Blues q8-9');
+        	} else {
+        		$(id).attr('class', 'canton Blues q' + invertRange + '-9');
+        	}
         } else {
-	        $(id).attr('class', 'canton Reds q' + quantizeUpper(prices[i].premium) + '-9');
+        	if (prices[i].premium > max) {
+        		$(id).attr('class', 'canton Reds q8-9');
+        	} else {
+        		$(id).attr('class', 'canton Reds q' + quantizeUpper(prices[i].premium) + '-9');
+            }
         }
         $(id).data("price",prices[i].premium);
         $(id).data("doctors", additional_data["doctors"][canton])
