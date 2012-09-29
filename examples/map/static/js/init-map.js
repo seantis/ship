@@ -148,9 +148,9 @@ $(document).bind('stf-ready', function(){
                             under_average = average - value;
                         }
                         over_average = 0;
-                        if(value > average - 1) {
-                            over_average = value - average + 1;
-                            value = average - 1;
+                        if(value > average) {
+                            over_average = value - average;
+                            value = average;
                         }
                         while(value >= 1) {
                             toolTipHtml += '<img width="'+ icon_size + 'px" class="doc" src="' + image_base_path  + '.svg" />';
@@ -176,11 +176,11 @@ $(document).bind('stf-ready', function(){
                         toolTipHtml += '</div>';
         	}
         	if ($(this).data("hospitalbeds")!=undefined) {
-                        toolTipHtml += '<div style="float: left; width: 200px;">';
+                        //toolTipHtml += '<div style="float: left; width: 200px;">';
                         beds = $(this).data("hospitalbeds");
-                        render_legend(beds/100, 46/10, 'static/img/bed', 20);
-//        		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+beds+"</div>";
-                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/bed.svg" /> Beds per 100\'000</div>';
+                        render_legend(beds/10, 46, 'static/img/bed', 20);
+        		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+beds+"</div>";
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/bed.svg" /> Beds per 10\'000</div>';
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/bed-gray.svg" /> Swiss average</div>';
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/bed-red.svg" /> Over Swiss average</div>';
                         toolTipHtml += '</div>';
