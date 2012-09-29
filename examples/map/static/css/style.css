@@ -66,6 +66,10 @@ div#map {
   fill-opacity: 0.8;
 }
 
+.compass .back:hover {
+  fill: #2c6eb5;
+}
+
 .compass .fore {
   stroke: #999;
   stroke-width: 0px;
@@ -254,6 +258,10 @@ div#map {
 }
 #time h2 { 
   padding-bottom:5px;
+}
+#deductible h2 span {
+  float: right;
+  margin-left: 3px;    
 }
 #deductibleLabel {
   float: right;
