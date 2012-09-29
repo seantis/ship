@@ -151,7 +151,7 @@ div#map {
 }
 .section{
   border-bottom: 1px solid #ddd;
-  padding: 10px 10px 20px;
+  padding: 0px 10px 10px 10px;
 }
 .folded .section{
   border-bottom: none;
@@ -270,13 +270,16 @@ div#map {
   padding-left: 25px;
 }
 
+ul {
+  margin: 0 !important;   
+}
+
 /* radios */
 .radios{
 }
 .radios ul{
   padding: 0;
   overflow: hidden;
-  margin-bottom: 0;
 }
 .radios ul li{
   padding: 0 0 5px 25px;

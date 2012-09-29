@@ -80,7 +80,14 @@
           {% endfor %}
         </ul>
       </div>
-
+      <div class="section" id="insurer">
+        <h2>Insurer</h2>
+        <select name="insurerSelect">
+        {% for key, desc in insurers %}
+          <option value="{{ key }}">{{ desc }}</option>
+        {% endfor %}
+        </select>
+      </div>
       <div class="section last" id="credits">
         <p>Map data &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="http://www.openstreetmap.org/copyright">License</a></p>
       </div>

@@ -24,11 +24,15 @@ types['HAM_RDS'] = 'Family Doctor'
 types['HMO'] = 'Managed Care'
 types['DIV'] = 'Other'
 
+insurers = [(0, 'All')]
+insurers.extend(ship.db.distinct_insurers())
+
 @app.route("/")
 def index():
     return render_template('index.html', 
         years=ship.db.years(),
-        types=types
+        types=types,
+        insurers=insurers
     )
 
 @app.route('/data/<path:filename>')
@@ -42,6 +46,7 @@ def query():
     year = request.args.get('year', 2013, type=int)
     accident = request.args.get('accident', "false", type=str)
     types = request.args.get('types', "Base,HAM_RDS,HMO,DIV", type=str)
+    insurer = request.args.get('insurer', 0, type=int)
 
     p = ship.db.Premiums()
     p = p.for_swiss()
@@ -49,6 +54,9 @@ def query():
     p = p.for_age(age)
     p = p.for_franchises((franchise, ))
     p = p.for_insurance_types(types.split(','))
+
+    if insurer:
+        p = p.for_insurer(insurer)
     
     if accident == "true":
         p = p.with_accident();

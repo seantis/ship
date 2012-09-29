@@ -66,13 +66,22 @@ def insurance_types(year=None):
 
     return unpack(query.all())
 
-def insurers(year=None):
+def insurers(year='*'):
     """ Returns the insurers of the given or the latest year. """
 
     year = year or latest_year()
     assert year
 
     return session.query(Insurer)
+
+def distinct_insurers():
+    """ Returns an array with all insurers containing insurer_id and name,
+    with values from multiple years merged into. (SELECT DISTINCT)
+
+    """
+
+    query = session.query(Insurer.insurer_id, Insurer.name)
+    return query.order_by(Insurer.name).distinct().all()
 
 def franchises(age=None, year=None):
     """ Returns a list of possible franchises for the given or the latest year. 
@@ -226,6 +235,9 @@ class Premiums(object):
 
     def for_insurance_types(self, insurance_types):
         return Premiums(self.q.filter(Premium.insurance_type.in_(insurance_types)))
+
+    def for_insurer(self, insurer_id):
+        return Premiums(self.q.filter(Premium.insurer_id == insurer_id))
 
     def with_accident(self):
         return Premiums(self.q.filter(Premium.with_accident==True))

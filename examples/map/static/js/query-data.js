@@ -5,6 +5,7 @@ var update_premiums = function(callback) {
     var age = $('input[name="ageRadio"]:checked').val();
     var franchise = $('#deductibleLabel').text();
     var accident = $('input[name="accidentRadio"]:checked').val();
+    var insurer = $('select[name="insurerSelect"] option:selected').val();
 
     var types = [];
     var checked = $('input[name="typeChk"]:checked');
@@ -12,18 +13,19 @@ var update_premiums = function(callback) {
         types[i] = $(checked[i]).val();
     }
     
-    query_premiums(year, age, franchise, accident, types, function(data) {
+    query_premiums(year, age, franchise, accident, types, insurer, function(data) {
         handle_update(data);
         if (callback) callback();
     });
 };
 
-var query_premiums = function(year, age, franchise, accident, types, callback) {
+var query_premiums = function(year, age, franchise, accident, types, insurer, callback) {
     var url = '/query?age=' + age;
     url += '&year=' + year;
     url += '&franchise=' + franchise;
     url += '&accident=' + accident;
     url += '&types=' + types.join(',');
+    url += '&insurer=' + insurer;
 
     if (url in query_cache) {
         callback(query_cache[url]);
