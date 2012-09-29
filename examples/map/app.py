@@ -3,6 +3,7 @@ from flask import Flask, render_template, send_from_directory, request
 
 import ship
 import json
+import os.path
 
 from ship.models import Premium
 from sqlalchemy import func
@@ -10,7 +11,11 @@ from sqlalchemy import func
 app = Flask(__name__)
 manager = Manager(app)
 
-ship.config.connect('sqlite:///premiums.db')
+if os.path.exists('dsn.txt'):
+    with open('dsn.txt', 'r') as dsn:
+        ship.config.connect(dsn.read().rstrip('\n'))
+else:
+    ship.config.connect('sqlite:///premiums.db')
 
 @app.route("/")
 def index():
