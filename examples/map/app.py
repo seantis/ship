@@ -4,6 +4,7 @@ from flask import Flask, render_template, send_from_directory, request
 import ship
 import json
 import os.path
+from collections import OrderedDict
 
 from ship.models import Premium
 from sqlalchemy import func
@@ -17,9 +18,18 @@ if os.path.exists('dsn.txt'):
 else:
     ship.config.connect('sqlite:///premiums.db')
 
+types = OrderedDict()
+types['Base'] = 'Base'
+types['HAM_RDS'] = 'Family Doctor'
+types['HMO'] = 'Managed Care'
+types['DIV'] = 'Other'
+
 @app.route("/")
 def index():
-    return render_template('index.html', years=ship.db.years())
+    return render_template('index.html', 
+        years=ship.db.years(),
+        types=types
+    )
 
 @app.route('/data/<path:filename>')
 def data(filename):
@@ -31,12 +41,14 @@ def query():
     franchise = request.args.get('franchise', 300, type=int)
     year = request.args.get('year', 2013, type=int)
     accident = request.args.get('accident', "false", type=str)
+    types = request.args.get('types', "Base,HAM_RDS,HMO,DIV", type=str)
 
     p = ship.db.Premiums()
     p = p.for_swiss()
     p = p.for_year(year)
     p = p.for_age(age)
     p = p.for_franchises((franchise, ))
+    p = p.for_insurance_types(types.split(','))
     
     if accident == "true":
         p = p.with_accident();

@@ -69,6 +69,17 @@
         {% endfor %}
         </ul>
       </div>
+      <div class="section checks" id="type">
+        <h2>Model</h2>
+        <ul>
+          {% for type, desc in types.items() %}
+          <li>
+            <input name="typeChk" type="checkbox" id="typeChk{{ type }}" value="{{ type }}" checked="checked">
+            <label for="typeChk{{ type }}">{{ desc }}</label>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
 
       <div class="section last" id="credits">
         <p>Map data &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="http://www.openstreetmap.org/copyright">License</a></p>

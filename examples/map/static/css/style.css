@@ -264,6 +264,12 @@ div#map {
 #time #deductible_slider{
   margin-top: 2px;
 }
+/* checks */
+.checks ul {
+  list-style: none;
+  padding-left: 25px;
+}
+
 /* radios */
 .radios{
 }
