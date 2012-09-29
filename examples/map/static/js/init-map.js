@@ -147,17 +147,27 @@ $(document).bind('stf-ready', function(){
                         if(docs_scaled < 18) {
                             additional_docs = 18 - docs_scaled;
                         }
-                        while(docs_scaled > 1) {
+                        docs_over_avg = 0;
+                        if(docs_scaled > 17) {
+                            docs_over_avg = docs_scaled - 17;
+                            docs_scaled = 17;
+                        }
+                        while(docs_scaled >= 1) {
                             toolTipHtml += '<img width="20px" class="doc" src="static/img/doctor.svg" />';
                             docs_scaled--;
                         }
-                        while(additional_docs > 1) {
+                        while(additional_docs >= 1) {
                             toolTipHtml += '<img width="20px" class="doc-std" src="static/img/doctor-gray.svg" />';
                             additional_docs--;
                         }
+                        while(docs_over_avg >= 1) {
+                            toolTipHtml += '<img width="20px" class="doc-std" src="static/img/doctor-red.svg" />';
+                            docs_over_avg--;
+                        }
         		toolTipHtml += "<div class=\"tt_docs100k\">"+docs+"</div>";
-                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor.svg" /> one Doctor per Mio People</div>';
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor.svg" /> Doctor per 10\'000 People</div>';
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-gray.svg" /> average in Switzerland</div>';
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-red.svg" /> over average</div>';
         	}
         	if ($(this).data("hospitalbeds")!=undefined) {
         		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+$(this).data("hospitalbeds")+"</div>";
