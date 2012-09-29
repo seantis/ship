@@ -21,7 +21,7 @@ label:hover {
    ==========================================================================
 */
 
-.canton:hover {
+.canton.selected {
     stroke: #000 !important;
     stroke-width: 1px;
 }

@@ -1,6 +1,39 @@
 var query_cache = {};
 
+var transforms = ['-webkit-transform', '-moz-transform', '-ms-transform', '-o-transform']
+
+var rotate_logo = function() {
+    var rotation = 0, interval = 0;
+    var logo = $('#title img');
+
+    if (logo.data('rotating')) {
+        return;
+    }
+
+    logo.data('rotating', true);
+    var rotate = function() {
+        rotation += 10;
+        for (var i=0; i < transforms.length; i++) {
+            logo.css(transforms[i], "rotate(" + rotation + "deg)");
+        }
+
+        if (rotation == 350) {
+            clearInterval(interval);
+
+            for (i=0; i < transforms.length; i++) {
+                logo.css(transforms[i], "");
+            }    
+
+            logo.data('rotating', false);
+        }
+    }
+    
+    interval = setInterval(rotate, 10);
+}
+
 var update_premiums = function(callback) {
+    rotate_logo();
+
     var year = $('input[name="yearRadio"]:checked').val();
     var age = $('input[name="ageRadio"]:checked').val();
     var franchise = $('#deductibleLabel').text();
@@ -41,19 +74,20 @@ var query_premiums = function(year, age, franchise, accident, types, insurer, ca
 };
 
 var handle_update = function(prices) {
-    var min = 140, max = 460, mean = 0;
+    var min = 140, max = 460, mean = 300;
     var sum=0;
     for (var i = 0; i < prices.length; i++) {
       if (prices[i].premium < min) {
-          min = prices[i].premium;
+// fix in scale          min = prices[i].premium;
       }
 
       if (prices[i].premium > max) {
-          max = prices[i].premium;
+// fix in scale          max = prices[i].premium;
       }
       sum += prices[i].premium;
     }
-    mean = sum / prices.length;
+    
+//    mean = sum / prices.length;
 
     var quantizeUpper = d3.scale.quantile().domain([mean, max]).range(d3.range(9));
     var quantizeLower = d3.scale.quantile().domain([mean, min]).range(d3.range(9));
@@ -66,7 +100,6 @@ var handle_update = function(prices) {
         } else {
 	        $(id).attr('class', 'canton Reds q' + quantizeUpper(prices[i].premium) + '-9');
         }
-//        console.log(data.cantons);
+        $(id).data("price",prices[i].premium);
     }
-    console.log('data here');
 };
