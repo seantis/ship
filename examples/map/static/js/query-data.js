@@ -4,6 +4,7 @@ var additional_data = {};
 function load_additional_data() {
     load_from_url('doctors_absolute.json', 'doctors');
     load_from_url('doctors_per_100k.json', 'docs100k');
+    load_from_url('hospital_beds_cantons.json', 'beds');
     function load_from_url(url, target) {
         jQuery.getJSON('/data/' + url, function(data) {
             additional_data[target] = data;
@@ -138,5 +139,6 @@ var handle_update = function(prices) {
         $(id).data("price",prices[i].premium);
         $(id).data("doctors", additional_data["doctors"][canton])
         $(id).data("docs100k", additional_data["docs100k"][canton])
+        $(id).data("hospitalbeds", additional_data["beds"][canton])
     }
 };

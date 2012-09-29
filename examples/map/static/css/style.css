@@ -386,4 +386,17 @@ ul {
 
 /* TOOLTIP */
 .tipsy { 
-  font-size:10pt; }
+  font-size:10pt; 
+  text-align: left;
+}
+
+.tipsy .head {
+  font-size: 30px;
+  font-weight: 300;
+  padding-bottom: 15px;
+}
+
+.tipsy .legend {
+  font-size: 11px;
+  color: #999;
+}

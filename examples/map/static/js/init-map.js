@@ -140,27 +140,43 @@ $(document).bind('stf-ready', function(){
         	if ($(this).data("price")!=undefined) {
         		toolTipHtml += "<div class=\"tt_price\">"+$(this).data("price")+" CHF</div>";
         	}
+
+          toolTipHtml = '<div class="head">' + toolTipHtml + "</div>"
+                function render_legend(value, average, image_base_path, icon_size) {
+                        under_average = 0;
+                        if(value < average) {
+                            under_average = average - value;
+                        }
+                        over_average = 0;
+                        if(value > average - 1) {
+                            over_average = value - average + 1;
+                            value = average - 1;
+                        }
+                        while(value >= 1) {
+                            toolTipHtml += '<img width="'+ icon_size + 'px" class="doc" src="' + image_base_path  + '.svg" />';
+                            value--;
+                        }
+                        while(under_average >= 1) {
+                            toolTipHtml += '<img width="'+ icon_size +'px" class="doc-std" src="' + image_base_path + '-gray.svg" />';
+                            under_average--;
+                        }
+                        while(over_average >= 1) {
+                            toolTipHtml += '<img width="'+ icon_size +'px" class="doc-ovr" src="' + image_base_path + '-red.svg" />';
+                            over_average--;
+                        }
+//        		toolTipHtml += "<div class=\"tt_docs100k\">"+docs+"</div>";
+                }
         	if ($(this).data("docs100k")!=undefined) {
                         docs = $(this).data("docs100k");
-                        docs_scaled = docs/10;
-                        additional_docs = 0;
-                        if(docs_scaled < 18) {
-                            additional_docs = 18 - docs_scaled;
-                        }
-                        while(docs_scaled > 1) {
-                            toolTipHtml += '<img width="20px" class="doc" src="static/img/doctor.svg" />';
-                            docs_scaled--;
-                        }
-                        while(additional_docs > 1) {
-                            toolTipHtml += '<img width="20px" class="doc-std" src="static/img/doctor-gray.svg" />';
-                            additional_docs--;
-                        }
-        		toolTipHtml += "<div class=\"tt_docs100k\">"+docs+"</div>";
-                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor.svg" /> one Doctor per Mio People</div>';
+                        render_legend(docs/10, 18, 'static/img/doctor', 20);
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor.svg" /> Doctor per 10\'000 People</div>';
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-gray.svg" /> average in Switzerland</div>';
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-red.svg" /> over average</div>';
         	}
         	if ($(this).data("hospitalbeds")!=undefined) {
-        		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+$(this).data("hospitalbeds")+"</div>";
+                        beds = $(this).data("hospitalbeds");
+                        render_legend(beds/100, 46/10, 'static/img/bed', 20);
+        		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+beds+"</div>";
         	}
         		
             $('#tooltip').css({
