@@ -138,7 +138,12 @@ $(document).bind('stf-ready', function(){
                        top:   e.pageY - 10,
                        visibility: 'visible'
             }).html(this.__data__.properties.Name);
+            el = this;
+
+            // move element "on top of" all others within the same grouping
+            this.parentNode.appendChild(this); 
         });
+
     });
 });
 
