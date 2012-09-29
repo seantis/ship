@@ -1,6 +1,4 @@
 $(document).ready(function() {
-  update_premiums();
-  
   $("a#panel_toggle").click(function() {
     var panel = $("#panel");
     if(panel.attr("class") == "folded"){
@@ -20,4 +18,6 @@ $(document).ready(function() {
   $('#time_play_btn, #location_btn').tipsy({
     gravity: 's'
   });
+
+  setTimeout(update_premiums, 100);
 });
