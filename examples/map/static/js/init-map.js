@@ -173,6 +173,10 @@ $(document).bind('stf-ready', function(){
 
     });
 
+    $('#panel').mouseenter(function() {
+        $("#tooltip").fadeOut();
+    });
+
     // catch mouseenter to avoid hiding the tooltip
     $('#tooltip').mouseenter(function(e) {
         clearTimeout(hideTimeout);
