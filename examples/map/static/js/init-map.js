@@ -132,7 +132,7 @@ $(document).bind('stf-ready', function(){
     });
 
     $('.cantons').each(function(i) {
-        $(this).mousemove(function(e) {
+        $(this).mouseenter(function(e) {
             $('#tooltip').css({
                        left:  e.pageX + 20,
                        top:   e.pageY - 10,
