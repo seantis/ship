@@ -388,7 +388,10 @@ ul {
 .tipsy { 
   font-size:10pt; 
   text-align: left;
+  padding-bottom: 10px;
 }
+
+.tt_docs100k {color: #000;}
 
 .tipsy .head {
   font-size: 30px;
@@ -397,6 +400,7 @@ ul {
 }
 
 .tipsy .legend {
+  clear: all;
   font-size: 11px;
   color: #999;
 }
