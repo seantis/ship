@@ -142,6 +142,8 @@ $(document).bind('stf-ready', function(){
         	}
 
           toolTipHtml = '<div class="head">' + toolTipHtml + "</div>"
+                function render_legend(value, average, image_base_path) {
+                }
         	if ($(this).data("docs100k")!=undefined) {
                         docs = $(this).data("docs100k");
                         docs_scaled = docs/10;
