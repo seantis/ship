@@ -29,20 +29,32 @@ var query_premiums = function(year, age, franchise, accident, callback) {
 };
 
 var handle_update = function(prices) {
-    var min = 10000000, max = 0;
+//    var min = 100, max = 500;
+    var min = 140, max = 460, mean = 0;
+    var sum=0;
     for (var i = 0; i < prices.length; i++) {
-        if (prices[i].premium < min) {
-            min = prices[i].premium;
-        }
+      if (prices[i].premium < min) {
+          min = prices[i].premium;
+      }
 
-        if (prices[i].premium > max) {
-            max = prices[i].premium;
-        }
+      if (prices[i].premium > max) {
+          max = prices[i].premium;
+      }
+      sum += prices[i].premium;
     }
+    mean = sum / prices.length;
+    console.log("min "+min+" max " +max+" mean "+mean);
 
-    var quantize = d3.scale.quantile().domain([min, max]).range(d3.range(9));
+    var quantizeUpper = d3.scale.quantile().domain([mean, max]).range(d3.range(9));
+    var quantizeLower = d3.scale.quantile().domain([mean, min]).range(d3.range(9));
+    
     for (i = 0; i < prices.length; i++) {
         var id = '#canton-' + prices[i].canton.toLowerCase();
-        $(id).attr('class', 'canton q' + quantize(prices[i].premium) + '-9');
+        if (prices[i].premium <= mean) {
+        	var invertRange = 9- quantizeLower(prices[i].premium);
+	        $(id).attr('class', 'canton Greens q' + invertRange + '-9');
+        } else {
+	        $(id).attr('class', 'canton Reds q' + quantizeUpper(prices[i].premium) + '-9');
+        }
     }
 };
