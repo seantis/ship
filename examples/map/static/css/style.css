@@ -259,7 +259,7 @@ div#map {
 #time h2 { 
   padding-bottom:5px;
 }
-#deductible h2 span {
+#deductible h2 span.unit {
   float: right;
   margin-left: 3px;    
 }
