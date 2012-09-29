@@ -131,17 +131,29 @@ $(document).bind('stf-ready', function(){
         update_premiums();
     });
 
+    var hideTimeout = null;
+
     $('.cantons').each(function(i) {
         $(this).mouseenter(function(e) {
             $('#tooltip').css({
                        left:  e.pageX + 20,
                        top:   e.pageY - 10,
                        visibility: 'visible'
-            }).html(this.__data__.properties.Name);
-            el = this;
+            }).html(this.__data__.properties.Name).fadeIn();
 
             // move element "on top of" all others within the same grouping
             this.parentNode.appendChild(this); 
+            clearTimeout(hideTimeout);
+        });
+        $(this).mouseleave(function(e) {
+            // move element to the back
+            this.parentNode.insertBefore(this, this.parentNode.firstChild);
+            if(hideTimeout) {
+                clearTimeout(hideTimeout);
+            }
+            hideTimeout = setTimeout(function() {
+                $('#tooltip').fadeOut(); 
+            }, 100);
         });
 
     });
