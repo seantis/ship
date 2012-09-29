@@ -336,6 +336,46 @@ ul {
   margin: 10px 0;
 }
 
+/* COLOR LEGEND */
+.color-watch {
+  width: 4.8%;
+  height: 15px;
+  float: left;
+  border: 1px solid #fff;
+}
+
+.color-watch.Blues.q8-9 {background: rgb(247,251,255);}
+.color-watch.Blues.q7-9 {background: rgb(222,235,247);}
+.color-watch.Blues.q6-9 {background: rgb(198,219,239);}
+.color-watch.Blues.q5-9 {background: rgb(158,202,225);}
+.color-watch.Blues.q4-9 {background: rgb(107,174,214);}
+.color-watch.Blues.q3-9 {background: rgb(66,146,198);}
+.color-watch.Blues.q2-9 {background: rgb(33,113,181);}
+.color-watch.Blues.q1-9 {background: rgb(8,81,156);}
+.color-watch.Blues.q0-9 {background: rgb(8,48,107);}
+
+.color-watch.Reds.q0-9 {background: rgb(255,245,240);}
+.color-watch.Reds.q1-9 {background: rgb(254,224,210);}
+.color-watch.Reds.q2-9 {background: rgb(252,187,161);}
+.color-watch.Reds.q3-9 {background: rgb(252,146,114);}
+.color-watch.Reds.q4-9 {background: rgb(251,106,74);}
+.color-watch.Reds.q5-9 {background: rgb(239,59,44);}
+.color-watch.Reds.q6-9 {background: rgb(203,24,29);}
+.color-watch.Reds.q7-9 {background: rgb(165,15,21);}
+.color-watch.Reds.q8-9 {background: rgb(103,0,13);}
+
+
+#range div {
+  width: 50%;
+  float: left;
+  color: #666;
+  font-size: 11px;
+}
+
+.clear-all {
+  clear: both;
+}
+
 /* TOOLTIP */
 .tipsy { 
   font-size:10pt; }
