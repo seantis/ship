@@ -48,26 +48,21 @@ var update_premiums = function(callback) {
     var franchise = $('#deductibleLabel').text();
     var accident = $('input[name="accidentRadio"]:checked').val();
     var insurer = $('select[name="insurerSelect"] option:selected').val();
-
-    var types = [];
-    var checked = $('input[name="typeChk"]:checked');
-    for(var i=0; i < checked.length; i++) {
-        types[i] = $(checked[i]).val();
-    }
+    var type = $('input[name="typeRadio"]:checked').val();
     
-    query_premiums(year, age, franchise, accident, types, insurer, function(data) {
+    query_premiums(year, age, franchise, accident, type, insurer, function(data) {
         handle_update(data);
         if (callback) callback();
         rotate_stop();
     });
 };
 
-var query_premiums = function(year, age, franchise, accident, types, insurer, callback) {
+var query_premiums = function(year, age, franchise, accident, type, insurer, callback) {
     var url = '/query?age=' + age;
     url += '&year=' + year;
     url += '&franchise=' + franchise;
     url += '&accident=' + accident;
-    url += '&types=' + types.join(',');
+    url += '&type=' + type;
     url += '&insurer=' + insurer;
 
     if (url in query_cache) {
