@@ -141,7 +141,23 @@ $(document).bind('stf-ready', function(){
         		toolTipHtml += "<div class=\"tt_price\">"+$(this).data("price")+" CHF</div>";
         	}
         	if ($(this).data("docs100k")!=undefined) {
-        		toolTipHtml += "<div class=\"tt_docs100k\">"+$(this).data("docs100k")+"</div>";
+                        docs = $(this).data("docs100k");
+                        docs_scaled = docs/10;
+                        additional_docs = 0;
+                        if(docs_scaled < 18) {
+                            additional_docs = 18 - docs_scaled;
+                        }
+                        while(docs_scaled > 1) {
+                            toolTipHtml += '<img width="20px" class="doc" src="static/img/doctor.svg" />';
+                            docs_scaled--;
+                        }
+                        while(additional_docs > 1) {
+                            toolTipHtml += '<img width="20px" class="doc-std" src="static/img/doctor-gray.svg" />';
+                            additional_docs--;
+                        }
+        		toolTipHtml += "<div class=\"tt_docs100k\">"+docs+"</div>";
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor.svg" /> one Doctor per Mio People</div>';
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-gray.svg" /> average in Switzerland</div>';
         	}
         	if ($(this).data("hospitalbeds")!=undefined) {
         		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+$(this).data("hospitalbeds")+"</div>";
