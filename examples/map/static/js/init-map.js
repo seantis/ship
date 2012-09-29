@@ -142,36 +142,40 @@ $(document).bind('stf-ready', function(){
         	}
 
           toolTipHtml = '<div class="head">' + toolTipHtml + "</div>"
+                function render_legend(value, average, image_base_path) {
+                        under_average = 0;
+                        if(value < 18) {
+                            under_average = 18 - value;
+                        }
+                        over_average = 0;
+                        if(value > 17) {
+                            over_average = value - 17;
+                            value = 17;
+                        }
+                        while(value >= 1) {
+                            toolTipHtml += '<img width="20px" class="doc" src="' + image_base_path  + '.svg" />';
+                            value--;
+                        }
+                        while(under_average >= 1) {
+                            toolTipHtml += '<img width="20px" class="doc-std" src="' + image_base_path + '-gray.svg" />';
+                            under_average--;
+                        }
+                        while(over_average >= 1) {
+                            toolTipHtml += '<img width="20px" class="doc-ovr" src="' + image_base_path + '-red.svg" />';
+                            over_average--;
+                        }
+//        		toolTipHtml += "<div class=\"tt_docs100k\">"+docs+"</div>";
+                }
         	if ($(this).data("docs100k")!=undefined) {
                         docs = $(this).data("docs100k");
-                        docs_scaled = docs/10;
-                        additional_docs = 0;
-                        if(docs_scaled < 18) {
-                            additional_docs = 18 - docs_scaled;
-                        }
-                        docs_over_avg = 0;
-                        if(docs_scaled > 17) {
-                            docs_over_avg = docs_scaled - 17;
-                            docs_scaled = 17;
-                        }
-                        while(docs_scaled >= 1) {
-                            toolTipHtml += '<img width="20px" class="doc" src="static/img/doctor.svg" />';
-                            docs_scaled--;
-                        }
-                        while(additional_docs >= 1) {
-                            toolTipHtml += '<img width="20px" class="doc-std" src="static/img/doctor-gray.svg" />';
-                            additional_docs--;
-                        }
-                        while(docs_over_avg >= 1) {
-                            toolTipHtml += '<img width="20px" class="doc-std" src="static/img/doctor-red.svg" />';
-                            docs_over_avg--;
-                        }
-        		toolTipHtml += "<div class=\"tt_docs100k\">"+docs+"</div>";
+                        render_legend(docs/10, 18, 'static/img/doctor');
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor.svg" /> Doctor per 10\'000 People</div>';
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-gray.svg" /> average in Switzerland</div>';
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-red.svg" /> over average</div>';
         	}
         	if ($(this).data("hospitalbeds")!=undefined) {
+                        beds = $(this).data("hospitalbeds");
+                        render_legend(beds/100, 5, 'static/img/bed');
         		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+$(this).data("hospitalbeds")+"</div>";
         	}
         		
