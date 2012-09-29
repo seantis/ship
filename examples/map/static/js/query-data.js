@@ -2,15 +2,20 @@ var query_cache = {};
 
 var transforms = ['-webkit-transform', '-moz-transform', '-ms-transform', '-o-transform']
 
-var rotate_logo = function() {
-    var rotation = 0, interval = 0;
-    var logo = $('#title img');
+var logo = $('#title img');
+var rotation_interval, rotation = 0;
+var stop_rotation = false;
 
-    if (logo.data('rotating')) {
+var rotate_stop = function() {
+    stop_rotation = true;
+}
+
+var rotate_logo = function() {
+
+    if (rotation_interval) {
         return;
     }
 
-    logo.data('rotating', true);
     var rotate = function() {
         rotation += 10;
         for (var i=0; i < transforms.length; i++) {
@@ -18,18 +23,22 @@ var rotate_logo = function() {
         }
 
         if (rotation == 350) {
-            clearInterval(interval);
+            rotation = -10;
+            if (stop_rotation) {
+                clearInterval(rotation_interval);
+                rotation_interval = 0;
 
-            for (i=0; i < transforms.length; i++) {
-                logo.css(transforms[i], "");
-            }    
-
-            logo.data('rotating', false);
+                for (i=0; i < transforms.length; i++) {
+                    logo.css(transforms[i], "");
+                }
+            }
         }
     }
     
-    interval = setInterval(rotate, 10);
+    rotation_interval = setInterval(rotate, 10);
 }
+
+rotate_logo();
 
 var update_premiums = function(callback) {
     rotate_logo();
@@ -49,6 +58,7 @@ var update_premiums = function(callback) {
     query_premiums(year, age, franchise, accident, types, insurer, function(data) {
         handle_update(data);
         if (callback) callback();
+        rotate_stop();
     });
 };
 
