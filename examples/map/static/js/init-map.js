@@ -140,6 +140,8 @@ $(document).bind('stf-ready', function(){
         	if ($(this).data("price")!=undefined) {
         		toolTipHtml += "<div class=\"tt_price\">"+$(this).data("price")+" CHF</div>";
         	}
+
+          toolTipHtml = '<div class="head">' + toolTipHtml + "</div>"
         	if ($(this).data("docs100k")!=undefined) {
                         docs = $(this).data("docs100k");
                         docs_scaled = docs/10;
