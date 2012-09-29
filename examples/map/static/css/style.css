@@ -22,7 +22,7 @@ label:hover {
 */
 
 .canton:hover {
-    stroke: #383c53 !important;
+    stroke: #000 !important;
     stroke-width: 1px;
 }
 
