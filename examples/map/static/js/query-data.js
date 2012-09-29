@@ -1,12 +1,15 @@
 var query_cache = {};
 
-var update_premiums = function() {
+var update_premiums = function(callback) {
     var year = $('input[name="yearRadio"]:checked').val();
     var age = $('input[name="ageRadio"]:checked').val();
     var franchise = $('#deductibleLabel').text();
     var accident = $('input[name="accidentRadio"]:checked').val();
     
-    query_premiums(year, age, franchise, accident, handle_update);
+    query_premiums(year, age, franchise, accident, function(data) {
+        handle_update(data);
+        if (callback) callback();
+    });
 };
 
 var query_premiums = function(year, age, franchise, accident, callback) {
@@ -29,7 +32,6 @@ var query_premiums = function(year, age, franchise, accident, callback) {
 };
 
 var handle_update = function(prices) {
-//    var min = 100, max = 500;
     var min = 140, max = 460, mean = 0;
     var sum=0;
     for (var i = 0; i < prices.length; i++) {
@@ -43,7 +45,6 @@ var handle_update = function(prices) {
       sum += prices[i].premium;
     }
     mean = sum / prices.length;
-    console.log("min "+min+" max " +max+" mean "+mean);
 
     var quantizeUpper = d3.scale.quantile().domain([mean, max]).range(d3.range(9));
     var quantizeLower = d3.scale.quantile().domain([mean, min]).range(d3.range(9));
