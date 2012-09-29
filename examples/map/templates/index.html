@@ -16,6 +16,7 @@
 
   </head>
   <body>
+    <div id="tooltip" class="tipsy tipsy-inner" style="visibility: hidden;">I'm a tool</div>
     <div id="overlay"></div>
     <div id="map"></div>
     <div id="panel" class="unfolded">
@@ -79,6 +80,8 @@
     <script type="text/javascript" src="{{ url_for('static', filename='lib/jquery-1.6.2.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='lib/jquery.tipsy.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='lib/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/jquery.wrap-svg.js') }}"></script>
+    
 
   	<script type="text/javascript" src="{{ url_for('static', filename='lib/d3.v2.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='lib/polymaps.min.js') }}"></script>
