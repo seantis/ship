@@ -111,6 +111,14 @@ var handle_update = function(prices) {
     var quantizeUpper = d3.scale.quantile().domain([mean, max]).range(d3.range(9));
     var quantizeLower = d3.scale.quantile().domain([mean, min]).range(d3.range(9));
     
+    var resetcantons =     ["vd","vs","ge","be","fr","so","ne","ju","bs","bl","ag","zh","gl","sh","ar","ai","sg","gr","tg","lu","ur","sz","ow","nw","zg","ti"];
+    for(var i = 0; i < resetcantons.length; ++i) {
+          var id = '#canton-' + resetcantons[i];
+          $(id).data("price", "");
+          $(id).data("doctors", "");
+          $(id).data("docs100k", "");
+    }
+    
     for (i = 0; i < prices.length; i++) {
         var canton = prices[i].canton
         var id = '#canton-' + canton.toLowerCase();
