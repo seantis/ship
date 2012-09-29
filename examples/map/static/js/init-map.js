@@ -167,19 +167,23 @@ $(document).bind('stf-ready', function(){
 //        		toolTipHtml += "<div class=\"tt_docs100k\">"+docs+"</div>";
                 }
         	if ($(this).data("docs100k")!=undefined) {
+                       toolTipHtml += '<div style="float: left; width: 200px; padding-right: 20px">';
                         docs = $(this).data("docs100k");
                         render_legend(docs/10, 18, 'static/img/doctor', 20);
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor.svg" /> Doctors per 10\'000</div>';
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-gray.svg" /> Swiss average</div>';
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-red.svg" /> Over Swiss average</div>';
+                        toolTipHtml += '</div>';
         	}
         	if ($(this).data("hospitalbeds")!=undefined) {
+                        toolTipHtml += '<div style="float: left; width: 200px;">';
                         beds = $(this).data("hospitalbeds");
                         render_legend(beds/100, 46/10, 'static/img/bed', 20);
 //        		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+beds+"</div>";
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/bed.svg" /> Beds per 100\'000</div>';
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/bed-gray.svg" /> Swiss average</div>';
                         toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/bed-red.svg" /> Over Swiss average</div>';
+                        toolTipHtml += '</div>';
         	}
         		
             $('#tooltip').css({
