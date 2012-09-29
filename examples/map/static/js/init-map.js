@@ -176,7 +176,10 @@ $(document).bind('stf-ready', function(){
         	if ($(this).data("hospitalbeds")!=undefined) {
                         beds = $(this).data("hospitalbeds");
                         render_legend(beds/100, 46/10, 'static/img/bed', 20);
-        		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+beds+"</div>";
+//        		toolTipHtml += "<div class=\"tt_hospitalbeds\">"+beds+"</div>";
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/bed.svg" /> Beds per 100\'000</div>';
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/bed-gray.svg" /> Swiss average</div>';
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/bed-red.svg" /> Over Swiss average</div>';
         	}
         		
             $('#tooltip').css({
