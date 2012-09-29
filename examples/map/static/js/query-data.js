@@ -96,7 +96,7 @@ var query_premiums = function(year, age, franchise, accident, types, insurer, ca
 };
 
 var handle_update = function(prices) {
-    var min = 140, max = 460, mean = 300;
+    var min = 100, max = 500, mean = 300;
     var sum=0;
     for (var i = 0; i < prices.length; i++) {
       if (prices[i].premium < min) {
