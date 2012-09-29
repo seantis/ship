@@ -127,7 +127,7 @@ $(document).bind('stf-ready', function(){
         return "translate(" + d.x + "," + d.y + ")";
     }
 	
-    $('input[name="ageRadio"], input[name="yearRadio"], input[name="accidentRadio"], input[name="typeChk"], select[name="insurerSelect"]').change(function() {
+    $('input[name="ageRadio"], input[name="yearRadio"], input[name="accidentRadio"], input[name="typeRadio"], select[name="insurerSelect"]').change(function() {
         update_premiums();
     });
 

@@ -74,8 +74,8 @@
         <ul>
           {% for type, desc in types.items() %}
           <li>
-            <input name="typeChk" type="checkbox" id="typeChk{{ type }}" value="{{ type }}" checked="checked">
-            <label for="typeChk{{ type }}">{{ desc }}</label>
+            <input name="typeRadio" type="radio" id="typeRadio{{ type }}" value="{{ type }}" {% if loop.first %}checked="checked"{% endif %}>
+            <label for="typeRadio{{ type }}">{{ desc }}</label>
           </li>
           {% endfor %}
         </ul>
