@@ -169,9 +169,9 @@ $(document).bind('stf-ready', function(){
         	if ($(this).data("docs100k")!=undefined) {
                         docs = $(this).data("docs100k");
                         render_legend(docs/10, 18, 'static/img/doctor', 20);
-                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor.svg" /> Doctor per 10\'000 People</div>';
-                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-gray.svg" /> average in Switzerland</div>';
-                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-red.svg" /> over average</div>';
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor.svg" /> Doctors per 10\'000</div>';
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-gray.svg" /> Swiss average</div>';
+                        toolTipHtml += '<div class="legend"><img width="20px" class="doc" src="static/img/doctor-red.svg" /> Over Swiss average</div>';
         	}
         	if ($(this).data("hospitalbeds")!=undefined) {
                         beds = $(this).data("hospitalbeds");
