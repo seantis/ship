@@ -8,7 +8,7 @@ import os.path
 from ship.models import Premium
 from sqlalchemy import func
 
-app = Flask(__name__)
+application = app = Flask(__name__)
 manager = Manager(app)
 
 if os.path.exists('dsn.txt'):
