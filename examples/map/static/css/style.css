@@ -391,11 +391,16 @@ ul {
   padding-bottom: 10px;
 }
 
-.tt_docs100k {color: #000;}
+.tt_docs100k, .tt_hospitalbeds {
+  color: #999; 
+  text-align: right;
+  padding-right: 10px;
+  font-size: 20px;
+  font-weight: 200;} 
 
 .tipsy .head {
   font-size: 30px;
-  font-weight: 300;
+  font-weight: 200;
   padding-bottom: 15px;
 }
 
