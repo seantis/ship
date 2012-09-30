@@ -389,6 +389,9 @@ ul {
   font-size:10pt; 
   text-align: left;
   padding-bottom: 10px;
+  box-shadow: 3px 3px 8px #666;
+  -webkit-box-shadow: 3px 3px 8px #666;
+  -moz-box-shadow: 3px 3px 8px #666;
 }
 
 .tt_docs100k, .tt_hospitalbeds {
