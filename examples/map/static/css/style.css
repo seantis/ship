@@ -394,7 +394,6 @@ ul {
 .tt_docs100k, .tt_hospitalbeds {
   color: #999; 
   text-align: right;
-  padding-right: 10px;
   font-size: 20px;
   font-weight: 200;} 
 
@@ -402,6 +401,12 @@ ul {
   font-size: 30px;
   font-weight: 200;
   padding-bottom: 15px;
+}
+
+.tt_price{
+  width: 200px;
+  float: right;
+  text-align: right
 }
 
 .tipsy .legend {

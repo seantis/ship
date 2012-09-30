@@ -177,7 +177,7 @@ $(document).bind('stf-ready', function(){
                         toolTipHtml += '</div>';
         	}
         	if ($(this).data("hospitalbeds")!=undefined) {
-                        //toolTipHtml += '<div style="float: left; width: 200px;">';
+                        toolTipHtml += '<div style="float: left; width: 200px;">';
                         beds = $(this).data("hospitalbeds");
                         render_legend(beds/10, 46, 'static/img/bed', 20);
         		        toolTipHtml += "<div class=\"tt_hospitalbeds\">"+beds/10+"</div>";
