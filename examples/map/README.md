@@ -7,5 +7,5 @@ To install the application in your ship virtual environment run
     python app.py load
     python app.py runserver
 
-Visit example application on your localhost: [http://localhost:5000](http://localhost:5000)
+Visit the example application on your localhost: [http://localhost:5000](http://localhost:5000)
 
