@@ -145,7 +145,7 @@ $(document).bind('stf-ready', function(){
                 function render_legend(value, average, image_base_path, icon_size) {
                         under_average = 0;
                         if(value < average) {
-                            under_average = average - value;
+                            under_average = average - value + 1;
                         }
                         over_average = 0;
                         if(value > average) {
