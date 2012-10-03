@@ -11,7 +11,7 @@ from sqlalchemy import func
 
 try:
     from werkzeug.contrib.cache import MemcachedCache
-    cache = MemcachedCache(['127.0.0.1:11211'])
+    cache = MemcachedCache(['127.0.0.1:11211'], key_prefix="shipmap://")
 except ImportError, RuntimeError:
     from werkzeug.contrib.cache import SimpleCache
     cache = SimpleCache
