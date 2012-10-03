@@ -9,6 +9,13 @@ from collections import OrderedDict
 from ship.models import Premium
 from sqlalchemy import func
 
+try:
+    from werkzeug.contrib.cache import MemcachedCache
+    cache = MemcachedCache(['127.0.0.1:11211'])
+except ImportError, RuntimeError:
+    from werkzeug.contrib.cache import SimpleCache
+    cache = SimpleCache
+
 application = app = Flask(__name__)
 manager = Manager(app)
 
@@ -41,6 +48,11 @@ def data(filename):
 
 @app.route('/query')
 def query():
+    cache_key = lambda request: request.url.replace(request.url_root, '')
+
+    cached = cache.get(cache_key(request))
+    if cached: return cached
+
     age = request.args.get('age', 19, type=int)
     franchise = request.args.get('franchise', 300, type=int)
     year = request.args.get('year', 2013, type=int)
@@ -73,7 +85,10 @@ def query():
 
     round_results(results)
 
-    return json.dumps(results)
+    uncached = json.dumps(results)
+    cache.set(cache_key(request), uncached)
+
+    return uncached
 
 def round_results(results):
     for result in results:
