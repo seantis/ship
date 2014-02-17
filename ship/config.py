@@ -44,7 +44,7 @@ class DbConfig(object):
 
         this = os.path.dirname(self._file)
         
-        path = os.path.join(this, '../rawdata')
+        path = os.path.join(this, 'rawdata')
         path = os.path.abspath(path)
 
         assert os.path.exists(path)

@@ -4,10 +4,8 @@ name = "ship"
 description = "Swiss Health Insurance Premiums."
 version = '0.3rc1'
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+
+from setuptools import setup
 
 
 def get_long_description():
@@ -28,6 +26,8 @@ setup(
     description=description,
     long_description=get_long_description(),
     test_suite='ship.tests.get_suite',
+    include_package_data=True,
+    zip_safe=False,
     install_requires=[
         'sqlalchemy',
         'zope.proxy',

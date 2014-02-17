@@ -1,0 +1,2 @@
+recursive-include ship *
+global-exclude *.pyc

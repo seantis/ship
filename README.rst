@@ -85,19 +85,19 @@ into ship one has to do the following:
 1. Check if the data structure has changed.
 
    Compare Doku\_PraemienDaten.txt in the data release with
-   ``rawdata/doku_praemien_daten.txt``. The field descriptions should
+   ``ship/rawdata/doku_praemien_daten.txt``. The field descriptions should
    match.
 
 2. Copy the premiums.
 
    Praemien\_CH.csv and Praemien\_EU.csv can be used without changes.
-   Just copy them to the ``/rawdata`` folder, renaming them
+   Just copy them to the ``ship/rawdata`` folder, renaming them
    appropriately. E.g. if 2014 rename them as follows:
 
    ::
 
-       Praemien_CH.csv -> rawdata/2014_ch.csv
-       Praemien_EU.csv -> rawdata/2014_eu.csv
+       Praemien_CH.csv -> ship/rawdata/2014_ch.csv
+       Praemien_EU.csv -> ship/rawdata/2014_eu.csv
 
    The first line (headers) may be omitted, though it should also work
    with the header line present.
@@ -125,7 +125,7 @@ into ship one has to do the following:
 
    ``PLZ, Ortsbezeichnung, Kanton, BFS-Nr., Region, Gemeinde``
 
-   Store this as ``rawdata/2014_towns.csv``
+   Store this as ``ship/rawdata/2014_towns.csv``
 
 5. Adjust the test.
 
