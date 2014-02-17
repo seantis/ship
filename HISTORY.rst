@@ -2,6 +2,11 @@
 Changelog
 =========
 
+0.3rc2
+------
+
+- Fixes data not being served when executing 'map-run'
+
 0.3rc1
 ------
 

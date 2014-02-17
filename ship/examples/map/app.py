@@ -35,6 +35,10 @@ insurers = [(0, 'All')]
 insurers.extend(ship.db.distinct_insurers())
 
 
+def get_data_directory():
+    return os.path.join(os.path.dirname(__file__), 'data')
+
+
 @app.route("/")
 def index():
     return render_template(
@@ -47,7 +51,7 @@ def index():
 
 @app.route('/data/<path:filename>')
 def data(filename):
-    return send_from_directory('./data', filename)
+    return send_from_directory(get_data_directory(), filename)
 
 
 @app.route('/query')
