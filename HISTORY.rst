@@ -2,10 +2,12 @@
 Changelog
 =========
 
-0.3
----
+0.3rc1
+------
 
 - Includes insurance data for 2014
+
+- Moves map example inside the module, including it on PyPI. 
 
 0.2
 ---

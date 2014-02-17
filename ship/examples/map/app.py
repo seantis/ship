@@ -112,5 +112,9 @@ def load():
     ship.load.all()
 
 
+def run():
+    manager.run(default_command='runserver')
+
+
 if __name__ == "__main__":
     manager.run()

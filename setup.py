@@ -2,7 +2,7 @@
 
 name = "ship"
 description = "Swiss Health Insurance Premiums."
-version = '0.3'
+version = '0.3rc1'
 
 try:
     from setuptools import setup
@@ -31,5 +31,18 @@ setup(
     install_requires=[
         'sqlalchemy',
         'zope.proxy',
-    ]
+    ],
+    extras_require={
+        'map': [
+            'Flask',
+            'Flask-Script',
+            'python-memcached'
+        ]
+    },
+    entry_points={
+        'console_scripts': [
+            'map-load = ship.examples.map.app:load',
+            'map-run = ship.examples.map.app:run'
+        ]
+    },
 )
