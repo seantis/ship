@@ -10,6 +10,11 @@ If nothing can stop you however, install the dependencies first:
     easy_install readline
     pip install -r requirements.txt
 
+If you get an error install matplotlib, mentioning freetype.h and you are using
+homebrew, you'll find help here:
+
+    http://stackoverflow.com/questions/20572366/sudo-pip-install-matplotlib-fails-to-find-freetype-headers-os-x-mavericks
+
 And run ipython notbook second:
 
     ipython notebook --pylab inline

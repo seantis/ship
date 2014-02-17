@@ -5,6 +5,10 @@ from ship import load
 from ship import config
 from ship.models import Town
 
+
+YEARS = [2012, 2013, 2014]
+
+
 class TestDb(unittest.TestCase):
 
     def tearDown(self):
@@ -30,7 +34,7 @@ class TestDb(unittest.TestCase):
         self.assertFalse(old_bind is session.bind)
 
     def test_models(self):
-        
+
         town = Town(name=u"Leetlington", zipcode=1337, region=0, year=2012)
         self.assertEqual(town.name, u"Leetlington")
         self.assertEqual(town.zipcode, 1337)
@@ -65,13 +69,15 @@ class TestDb(unittest.TestCase):
         files = [
             '2012_insurers.csv', '2012_towns', '2012_ch.csv', '2012_eu.csv',
             '2013_insurers.csv', '2013_towns', '2013_ch.csv', '2013_eu.csv',
+            '2014_insurers.csv', '2014_towns', '2014_ch.csv', '2014_eu.csv',
         ]
 
-        self.assertEqual(load.available_years(files), [2012, 2013])
+        self.assertEqual(load.available_years(files), YEARS)
 
         files = [
             '2012-insurers.csv', '2012-towns', '2012-ch.csv', '2012-eu.csv',
             '2013-insurers.csv', '2013-towns', '2013-ch.csv', '2013-eu.csv',
+            '2014-insurers.csv', '2014-towns', '2014-ch.csv', '2014-eu.csv',
         ]
 
         self.assertEqual(load.available_years(files), [])
@@ -93,26 +99,26 @@ class TestDb(unittest.TestCase):
 
     def test_load_ch_premiums(self):
 
-        self.assertEqual(load.ch_premiums(limit=1000), 2)
+        self.assertEqual(load.ch_premiums(limit=1000), len(YEARS))
 
     def test_load_eu_premiums(self):
 
-        self.assertEqual(load.eu_premiums(limit=1000), 2)
+        self.assertEqual(load.eu_premiums(limit=1000), len(YEARS))
 
     def test_load_towns(self):
 
-        self.assertEqual(load.towns(), 2)
+        self.assertEqual(load.towns(), len(YEARS))
         self.assertEqual(load.towns(), 0)
-        self.assertEqual(load.towns(update=True), 2)
+        self.assertEqual(load.towns(update=True), len(YEARS))
         self.assertEqual(load.towns(year=1999), 0)
 
         config.session.commit()
 
     def test_load_insurers(self):
 
-        self.assertEqual(load.insurers(), 2)
+        self.assertEqual(load.insurers(), len(YEARS))
         self.assertEqual(load.insurers(), 0)
-        self.assertEqual(load.insurers(update=True), 2)
+        self.assertEqual(load.insurers(update=True), len(YEARS))
         self.assertEqual(load.insurers(year=1999), 0)
 
         config.session.commit()
@@ -121,4 +127,4 @@ class TestDb(unittest.TestCase):
 
         # test if the teardown mechanism of this class work
         # by re-running the first part of test_load_insurers
-        self.assertEqual(load.insurers(), 2)
+        self.assertEqual(load.insurers(), len(YEARS))

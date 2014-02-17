@@ -34,28 +34,33 @@ types['DIV'] = 'Other'
 insurers = [(0, 'All')]
 insurers.extend(ship.db.distinct_insurers())
 
+
 @app.route("/")
 def index():
-    return render_template('index.html', 
+    return render_template(
+        'index.html',
         years=ship.db.years(),
         types=types,
         insurers=insurers
     )
 
+
 @app.route('/data/<path:filename>')
 def data(filename):
-     return send_from_directory('./data', filename)
+    return send_from_directory('./data', filename)
+
 
 @app.route('/query')
 def query():
     cache_key = lambda request: request.url.replace(request.url_root, '')
 
     cached = cache.get(cache_key(request))
-    if cached: return cached
+    if cached:
+        return cached
 
     age = request.args.get('age', 19, type=int)
     franchise = request.args.get('franchise', 300, type=int)
-    year = request.args.get('year', 2013, type=int)
+    year = request.args.get('year', 2014, type=int)
     accident = request.args.get('accident', "false", type=str)
     type = request.args.get('type', "Base", type=str)
     insurer = request.args.get('insurer', 0, type=int)
@@ -69,11 +74,11 @@ def query():
 
     if insurer:
         p = p.for_insurer(insurer)
-    
+
     if accident == "true":
-        p = p.with_accident();
+        p = p.with_accident()
     else:
-        p = p.without_accident();
+        p = p.without_accident()
 
     query = p.q
     query = query.with_entities(Premium.canton, func.avg(Premium.price))
@@ -90,18 +95,22 @@ def query():
 
     return uncached
 
+
 def round_results(results):
     for result in results:
         result["premium"] = round(result["premium"])
 
-cantons = ('AG', 'AI', 'AR', 'BE', 'BL', 'BS', 'FR', 'GE', 'GL', 'GR', 'JU', 
-           'LU', 'NE', 'NW', 'OW', 'SG', 'SH', 'SO', 'SZ', 'TG', 'TI', 'UR', 
+
+cantons = ('AG', 'AI', 'AR', 'BE', 'BL', 'BS', 'FR', 'GE', 'GL', 'GR', 'JU',
+           'LU', 'NE', 'NW', 'OW', 'SG', 'SH', 'SO', 'SZ', 'TG', 'TI', 'UR',
            'VD', 'VS', 'ZG', 'ZH')
+
 
 @manager.command
 def load():
     print "loading premiums data"
     ship.load.all()
-    
+
+
 if __name__ == "__main__":
     manager.run()
