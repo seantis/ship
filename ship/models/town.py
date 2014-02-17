@@ -4,6 +4,7 @@ from sqlalchemy.types import Integer, String, SmallInteger
 from ship.config import base
 from ship.models.mixins import YearMixin
 
+
 class Town(base, YearMixin):
     __tablename__ = 'towns'
 

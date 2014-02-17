@@ -7,6 +7,7 @@ from ship.config import base, session
 from ship.models.mixins import YearMixin
 from ship.models import Insurer
 
+
 class Premium(base, YearMixin):
     __tablename__ = 'premiums'
 
@@ -26,8 +27,8 @@ class Premium(base, YearMixin):
     # List of countries: http://www.priminfo.ch/praemien/praemien_eu/EU.pdf
     country = Column(String(3))
 
-    # Region (0 if no region applies). Some cantons divide their towns 
-    # in different regions which have different premiums. 
+    # Region (0 if no region applies). Some cantons divide their towns
+    # in different regions which have different premiums.
     # Check ship.models.town and ship.db.Towns to acquire the relevant region.
     region = Column(SmallInteger, nullable=False)
 
@@ -50,7 +51,7 @@ class Premium(base, YearMixin):
     franchise = Column(SmallInteger, nullable=False)
 
     # Premium (in cents/rappen, to avoid floating point issues)
-    premium = Column(Integer, nullable=False) # store in cents
+    premium = Column(Integer, nullable=False)  # store in cents
 
     @hybrid_property
     def price(self):

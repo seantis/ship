@@ -4,6 +4,7 @@ from sqlalchemy.types import String, Integer
 from ship.config import base
 from ship.models.mixins import YearMixin
 
+
 class Insurer(base, YearMixin):
     __tablename__ = 'insurers'
 

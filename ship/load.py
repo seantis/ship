@@ -13,12 +13,14 @@ from ship.config import session
 from ship.models import Town, Insurer, Premium
 
 available_types = ('insurers', 'towns', 'ch', 'eu')
- 
+
+
 def all(year='*', update=False):
     towns(year, update)
     insurers(year, update)
     ch_premiums(year, update)
     eu_premiums(year, update)
+
 
 def file_path(year, type):
     """ Return the path to the given year and filetype, or None if missing."""
@@ -28,17 +30,18 @@ def file_path(year, type):
     path = os.path.join(config.rawdata_path, u'%i_%s.csv' % (year, type))
     return os.path.exists(path) and os.path.abspath(path) or None
 
+
 def available_years(files=None):
-    """ Return the available rawdata years in ascending order. 
+    """ Return the available rawdata years in ascending order.
     The list of files may be optionally passed to ease testing."""
-    
+
     files = files or os.listdir(config.rawdata_path)
     year_files = Counter()
-    
+
     for f in files:
         if not '_' in f:
             continue
-        
+
         year = f.split('_')[0]
 
         if not year.isdigit():
@@ -49,16 +52,19 @@ def available_years(files=None):
     years = set(year_files.elements())
 
     for year in years:
-        assert year_files[year] == len(available_types), \
-        'types missing in year %i' % year
+        assert year_files[year] == len(available_types), """
+            types missing in year %i
+        """ % year
 
     return sorted(years)
+
 
 def chunked(seq, chunksize):
     """ Yields items from an iterator in chunks."""
     it = iter(seq)
     while True:
         yield chain([it.next()], islice(it, chunksize-1))
+
 
 def premium_in_cents(value):
     """ Parse the premium from the csv file and return it's value in cents. """
@@ -73,6 +79,7 @@ def premium_in_cents(value):
         return int(value.replace('.', '')) * 10
 
     return int(value.replace('.', ''))
+
 
 class Loader(object):
 
@@ -100,11 +107,13 @@ class Loader(object):
         # if there's a record of the given year, maybe stop
         if not update:
             if self.model is Premium:
-                query = session.query(Premium).filter(Premium.year==year)
-                query = query.filter(Premium.group==self.type.upper())
+                query = session.query(Premium).filter(Premium.year == year)
+                query = query.filter(Premium.group == self.type.upper())
             else:
-                query = session.query(self.model).filter(self.model.year==year)
-            
+                query = session.query(self.model).filter(
+                    self.model.year == year
+                )
+
             if query.first():
                 return 0
 
@@ -129,10 +138,10 @@ class Loader(object):
                     try:
                         obj = self.factory(line)
                         obj.year = year
-                    
+
                     except ValueError:
-                        # there are a number of empty lines in the rawdata files
-                        # which we can safely skip over
+                        # there are a number of empty lines in the rawdata
+                        # files which we can safely skip over
                         logger.warn("invalid line %i in %s, skipping" % (
                             lineindex, csv_path
                         ))
@@ -146,8 +155,9 @@ class Loader(object):
                 session.rollback()
                 raise
             else:
-                # I cannot for the life of me figure out why sqlite won't accept
-                # nested transactions here. So I make due with sequential commits
+                # I cannot for the life of me figure out why sqlite won't
+                # accept nested transactions here. So I make due with
+                # sequential commits
                 session.commit()
 
             # respect the limit, which is aligned to the chunk steps
@@ -155,6 +165,7 @@ class Loader(object):
                 break
 
         return 1
+
 
 def load_town(line):
     t = Town()
@@ -166,7 +177,8 @@ def load_town(line):
     return t
 
 towns = Loader(Town, 'towns', load_town)
-        
+
+
 def load_insurer(line):
     i = Insurer()
     i.insurer_id = int(line[0])
@@ -174,6 +186,7 @@ def load_insurer(line):
     return i
 
 insurers = Loader(Insurer, 'insurers', load_insurer)
+
 
 def load_ch_premium(line):
     p = Premium()
@@ -201,6 +214,7 @@ def load_ch_premium(line):
     return p
 
 ch_premiums = Loader(Premium, 'ch', load_ch_premium)
+
 
 def load_eu_premium(line):
     p = Premium()

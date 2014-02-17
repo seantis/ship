@@ -19,10 +19,11 @@
 # available for import. It'll probably work just fine with
 # future virtualenv releases.
 
+
 class DbConfig(object):
-    
+
     _session = None
-    _file = __file__ # is also weird on older virtualenv versions
+    _file = __file__  # is also weird on older virtualenv versions
 
     from sqlalchemy.ext.declarative import declarative_base
     base = declarative_base()
@@ -43,7 +44,7 @@ class DbConfig(object):
         import os.path
 
         this = os.path.dirname(self._file)
-        
+
         path = os.path.join(this, 'rawdata')
         path = os.path.abspath(path)
 
@@ -53,13 +54,14 @@ class DbConfig(object):
 
     def connect(self, url='sqlite:///:memory:', engine=None):
         """ Use the database defined by the url or the sqlalchemy engine. """
-        
+
         assert url or engine
 
         from zope import proxy
         from sqlalchemy import create_engine, orm
 
-        if url: engine = create_engine(url)
+        if url:
+            engine = create_engine(url)
 
         session = orm.scoped_session(orm.sessionmaker(bind=engine))
 
@@ -68,7 +70,7 @@ class DbConfig(object):
             proxy.setProxiedObject(self._session, session)
         else:
             self._session = proxy.ProxyBase(session)
-        
+
         # import models before creating them to ensure that base.metadata
         # contains all tables needed
         from ship import models
