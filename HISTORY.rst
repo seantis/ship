@@ -2,6 +2,11 @@
 Changelog
 =========
 
+0.3
+---
+
+- Rerelase of 0.3rc2
+
 0.3rc2
 ------
 
